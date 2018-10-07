@@ -1,0 +1,14 @@
+# These are the modules that need to be included in the application's 
+# requirements.txt file if this module is being installed directly from
+# github (this type of install does not automatically install dependencies)
+
+boto3
+
+# These are 'helper' modules which are only required if you
+# are hacking on AwAws
+
+flake8
+moto
+pytest
+pytest-cov
+pytest-mock
