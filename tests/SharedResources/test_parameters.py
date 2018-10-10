@@ -11,6 +11,14 @@ def test_fully_qualified_parameter_name():
     params = Parameters(env, service, name)
     assert params._fully_qualified_parameter_name() == 'test.database.hostname'
 
-    new_params = Parameters(env, None, name)
     with pytest.raises(TypeError):
-        new_params._fully_qualified_parameter_name()
+        Parameters(env, None, name)
+
+
+def test_get():
+    env = 'test'
+    service = 'mongo'
+    name = 'hostname'
+    params = Parameters(env, service, name)
+
+    assert params.get() == 'test.mongo.com'
