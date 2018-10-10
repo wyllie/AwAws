@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+import argparse
+import sys
+sys.path.append('..')
+
+from AwAws.SharedResources.parameters import Parameters
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-s', '--service', help='service to access')
+parser.add_argument('-n', '--name', help='name of paramter')
+parser.add_argument('-e', '--env', default='dev',
+                    help='environment to use (default: %(default)s')
+parser.add_argument('-r', '--region', default='us-east-2',
+                    help='region to use (default: %(default)s')
+args = parser.parse_args()
+
+env = args.env
+service = args.service
+name = args.name
+
+value = Parameters(env, service, name).get()
+print('Value:', value)
