@@ -15,6 +15,7 @@ def test_fully_qualified_parameter_name():
         Parameters(env, None, name)
 
 
+@pytest.mark.skip(reason='this test connects to AWS directly, needs mock')
 def test_get():
     env = 'test'
     service = 'mongo'

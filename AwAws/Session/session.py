@@ -17,5 +17,5 @@ class Session(boto3.session.Session):
 
 
     def get_client(self, service):
-        return boto3.client(service)
+        return self.client(service)
 
