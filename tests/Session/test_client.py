@@ -1,32 +1,30 @@
 import os
-from moto import mock_ssm
 from AwAws.Session.session import Session
 
 
-@mock_ssm
 def test_session():
     session = Session()
+    assert session.session is None
+    assert session.region_name is None
     assert str(type(session)) == "<class 'AwAws.Session.session.Session'>"
 
 
-@mock_ssm
 def test_session_region():
     session = Session(region_name='us-least-9')
     assert session.region_name == 'us-least-9'
 
 
-@mock_ssm
 def test_session_region_env():
     session = Session()
-    assert session.region_name == 'us-least-7'
+    assert session.get_region() == None
 
     os.environ['AWS_REGION'] = 'us-least-7'
-    session = Session()
+    session.set_region()
     assert session.region_name == 'us-least-7'
+    assert session.get_region() == 'us-least-7'
     os.environ.pop('AWS_REGION')
 
 
-@mock_ssm
 def test_client():
     session = Session()
     client = session.get_client('ssm')
