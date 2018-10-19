@@ -9,7 +9,7 @@ class Env():
         ret = None
         try:
             ret = self.env[key]
-        except Exception as e:
+        except Exception:
             # variable does not exist, set it to None
             ret = None
 

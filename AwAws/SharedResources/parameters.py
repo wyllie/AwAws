@@ -26,8 +26,8 @@ class Parameters():
             )
             self.value = response['Parameter']['Value']
         except Exception as e:
-            raise RuntimeError('Could not find: ' + self.fully_qualified_name +
-                               ' ' + str(e))
+            raise RuntimeError('Could not find: ' + self.fully_qualified_name
+                               + ' ' + str(e))
         return self.value
 
 
