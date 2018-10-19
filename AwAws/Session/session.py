@@ -15,16 +15,13 @@ class Session():
         return None
 
 
-    def set_session(self):
-        self.session = botocore.session.get_session()
-        return self.session
-
-
     def set_region(self, region_name=None):
         env = Env()
 
+        self.region_name = region_name
         if region_name is None:
             self.region_name = env.get_env('AWS_REGION')
+
         return self.region_name
 
 
@@ -34,7 +31,11 @@ class Session():
 
     def get_client(self, service):
         if self.session is None:
-            self.set_session()
-        print('SESSION', self.session.get_config_variable('credentials_file'))
+            self._get_session()
         return self.session.create_client(service, region_name=self.get_region())
+
+
+    def _get_session(self):
+        self.session = botocore.session.get_session()
+        return self.session
 
