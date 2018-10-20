@@ -15,6 +15,9 @@ Ultimately, this project is about creating a nice interface bewteens your code
 and Aws - so when boto4 comes out, all of the code that needs to be refactored
 all lives in one place.
 
+## Details
+
+This project is using botocore
 
 ## I know it's a stupid name
 
