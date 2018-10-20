@@ -9,23 +9,14 @@ phases:
 
       # Upgrade AWS CLI to the latest version
       - pip install --upgrade awscli
-      - pip install -r requirements_test.txt
-      - pip install -r requirements.txt -t lib
+      - pip install -r requirements.txt 
 
   pre_build:
     commands:
 
       # Discover and run unit tests in the 'tests' directory. For more information, see <https://docs.python.org/3/library/unittest.html#test-discovery>
       # - python -m unittest discover tests
-      PYTHONPATH=.:./lib python3 -m pytest
+      - pytest
 
   build:
     commands:
-
-      # Use AWS SAM to package the application by using AWS CloudFormation
-      - aws cloudformation package --template template.yml --s3-bucket $S3_BUCKET --output-template template-export.yml
-
-artifacts:
-  type: zip
-  files:
-    - template-export.yml
