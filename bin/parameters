@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import argparse
 import sys
+sys.path.append('.')
 sys.path.append('..')
 
 from AwAws.SharedResources.parameters import Parameters
@@ -13,11 +14,35 @@ parser.add_argument('-e', '--env', default='dev',
                     help='environment to use (default: %(default)s')
 parser.add_argument('-r', '--region', default='us-east-2',
                     help='region to use (default: %(default)s')
+parser.add_argument('-v', '--value', help='value to set')
+parser.add_argument('-o', '--overwrite', default=False,
+                    action='store_true', help='overwrite existing value')
 args = parser.parse_args()
 
 env = args.env
 service = args.service
 name = args.name
+new_value = args.value
+overwrite = args.overwrite
 
-value = Parameters(env, service, name).get()
-print('Value:', value)
+params = Parameters(env, service, name)
+params.get_client()
+value = params.get()
+
+
+print('Current Value:', value)
+
+if new_value is not None:
+    try:
+        version = params.put(new_value, overwrite)
+        assert params.get() == new_value
+    except (RuntimeError, AssertionError) as e:
+        print('Error updating value:', str(e))
+        exit()
+
+    print('Value for', params.fully_qualified_parameter_name(), 'is', new_value)
+
+
+
+
+

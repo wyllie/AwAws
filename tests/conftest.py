@@ -10,5 +10,6 @@ os.environ['AWS_SHARED_CREDENTIALS_FILE'] = creds_file
 # we are keeping fixture definitions in the fixtures directory
 # include them here to make them available to the test suite
 pytest_plugins = [
-    'tests.fixtures.support_dir'
+    'tests.fixtures.support_dir',
+    'tests.fixtures.shared_resources'
 ]
