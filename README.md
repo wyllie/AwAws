@@ -8,7 +8,8 @@ is a real pain when you have to deal with stuff on the JSON level, especially
 when a lot of stuff in there is not really are that useful.  That said, the
 main idea behind this module is to provide a simple interface to make life a 
 lot easier when using boto3.  If you need the full power of boto3, then maybe 
-this is not the module for you.
+this is not the module for you, if you are doing some simple things in boto3
+then you might find these wrappers fairly useful.
 
 Ultimately, this project is about creating a nice interface bewteens your code
 and Aws - so when boto4 comes out, all of the code that needs to be refactored
