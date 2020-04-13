@@ -19,7 +19,7 @@ all lives in one place.
 
 ## Details
 
-This project is using botocore
+This project is using botocore directly to interface to AWS
 
 ## I know it's a stupid name
 
