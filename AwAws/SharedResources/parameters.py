@@ -42,8 +42,8 @@ class Parameters():
                 Overwrite=overwrite
             )
         except Exception as e:
-            raise RuntimeError('Could not set: ' + self.fully_qualified_name
-                               + ' ' + str(e))
+            raise RuntimeError('Could not set: ' + self.fully_qualified_name +
+                               ' ' + str(e))
         return response['Version']
 
 
