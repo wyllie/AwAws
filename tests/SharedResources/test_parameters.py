@@ -23,7 +23,7 @@ def test_set_value():
     params = Parameters(env='test-env', service='test-service', name='test-name')
     assert params.value is None
     params.set_value('test-value')
-    assert params.value is 'test-value'
+    assert params.value == 'test-value'
 
 
 def test_get(ssm_get_response):
