@@ -6,6 +6,8 @@ name: Build Lambda Layer
 on:
   push:
     branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   # For more info: https://github.com/aws-actions/configure-aws-credentials
@@ -30,6 +32,7 @@ jobs:
           release: ${release_id}.zip
         run: |
           mkdir python
+          pip install wheel
           pip install -r requirements.txt -t python
           pip install -e python
           zip -r $release python
