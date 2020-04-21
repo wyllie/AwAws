@@ -34,7 +34,7 @@ jobs:
           mkdir python
           pip3 install wheel
           pip3 install -r requirements.txt -t python
-          pip3 install -e . -t python
+          pip3 install -t  python
           echo building release $release
           zip -r $release python
           aws s3 cp $release  s3://net.dilex.github
