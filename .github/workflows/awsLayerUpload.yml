@@ -35,6 +35,7 @@ jobs:
           pip install wheel
           pip install -r requirements.txt -t python
           pip install -e python
+          echo building release $release
           zip -r $release python
           aws s3 cp $release  s3://net.dilex.github
 
