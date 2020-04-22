@@ -4,8 +4,6 @@
 name: Build Lambda Layer
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -34,11 +32,9 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_id: ${{ format('DilexNetworks-AwAws-{0}.zip', github.run_id)}}
+          release_id: ${{ format('DilexNetworks-AwAws-{0}-{1}.zip', github.ref, github.run_id)}}
         run: |
           mkdir python
-          # pip install wheel setuptools
-          # pip install --system -r requirements.txt -t python
           pip install -r requirements.txt -t python
           pip install . -t  python
           echo building release $release_id
