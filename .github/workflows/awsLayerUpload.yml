@@ -34,7 +34,7 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_id: ${{ format('{0}_{1}.zip', $GITHUB_REPOSITORY, $GITHUB_RUN_ID)}}
+          release_id: ${{ format('{0}_{1}.zip', github.repository, github.run_id)}}
         run: |
           mkdir python
           # pip install wheel setuptools
