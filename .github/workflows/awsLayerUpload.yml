@@ -32,7 +32,7 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_id: ${{ format('DilexNetworks-AwAws-{0}-{1}.zip', github.ref, github.run_id)}}
+          release_id: ${{ format('DilexNetworks-AwAws-{0}-{1}.zip', github.base_ref, github.run_id)}}
         run: |
           mkdir python
           pip install -r requirements.txt -t python
