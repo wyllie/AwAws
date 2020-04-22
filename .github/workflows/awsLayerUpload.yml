@@ -41,7 +41,7 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_bucket: s3://new.dilex.github
+          release_bucket: s3://net.dilex.github
           release_layer: ${{ format('AwAws-{0}-dev', github.head_ref )}}
           release_id: ${{ format('AwAws-{0}-dev.zip', github.head_ref )}}
         run: |
