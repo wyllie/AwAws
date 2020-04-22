@@ -41,9 +41,10 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_bucket: s3://net.dilex.github
-          release_layer: ${{ format('AwAws-{0}-dev', github.head_ref )}}
+          release_bucket: net.dilex.github
+          release_bucket_uri: ${{ format('s3://{0}', $release_bucket )}}
           release_id: ${{ format('AwAws-{0}-dev.zip', github.head_ref )}}
+          release_layer: ${{ format('AwAws-{0}-dev', github.head_ref )}}
         run: |
           mkdir python
           pip install -r requirements/prod.txt -t python
