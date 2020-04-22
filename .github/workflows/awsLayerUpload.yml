@@ -34,7 +34,7 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_id: ${{ format('{0}_{1}.zip', github.repository, github.run_id)}}
+          release_id: ${{ format('DilexNetworks-AwAws-{1}.zip', github.run_id)}}
         run: |
           mkdir python
           # pip install wheel setuptools
