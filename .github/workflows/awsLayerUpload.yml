@@ -51,6 +51,6 @@ jobs:
           pip install . -t  python
           echo building release $release_id
           zip --quiet -r $release_id python
-          aws s3 cp $release_id $release_bucket
+          aws s3 cp $release_id $release_bucket_uri
           aws lambda publish-layer-version --layer-name $release_layer  --content S3Bucket=$release_bucket,S3Key=$release_id --compatible-runtimes python3.8
 
