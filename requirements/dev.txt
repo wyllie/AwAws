@@ -12,6 +12,7 @@ botocore
 # are hacking on AwAws
 
 # install flake8 from master to avoid pycodestyle bug
+bandit
 coverage
 flake8
 mock>=3.0.4
