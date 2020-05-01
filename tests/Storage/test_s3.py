@@ -1,6 +1,5 @@
 import io
 import json
-import pickle
 import pytest
 
 from botocore.stub import Stubber
@@ -99,8 +98,7 @@ def test_put_data_object_fail():
             s3.put_data_object(data_object)
 
 
-def test_put_file_object():
-    data_object = {"hello": "this is some stuff"}
+def test_put_file_object(datadir):
     response = {
         'Expiration': 'string',
         'ETag': 'hello',
@@ -111,9 +109,12 @@ def test_put_file_object():
         'SSEKMSKeyId': 'string',
         'RequestCharged': 'requester'
     }
-    pickled = pickle.dumps(data_object)  # b'{"hello": "this is some stuff"}')
+
+    with open(datadir.join('python-logo.png'), 'rb') as f:
+        img_data = f.read()
+
     expected_params = {
-        'Body': pickled,
+        'Body': img_data,
         'Bucket': test_bucket_name,
         'Key': 'this_is_my_test_key'
     }
@@ -125,15 +126,17 @@ def test_put_file_object():
         stubber.add_response('put_object', response, expected_params)
         s3.set_bucket_name(test_bucket_name)
         s3.set_key_name('this_is_my_test_key')
-        check = s3.put_file_object(data_object)
+        check = s3.put_file_object(img_data)
 
         assert check['ETag'] == 'hello'
 
 
-def test_put_file_object_fail():
-    data_object = {"hello": "this is some stuff"}
+def test_put_file_object_fail(datadir):
+    with open(datadir.join('python-logo.png'), 'rb') as f:
+        img_data = f.read()
+
     expected_params = {
-        'Body': pickle.dumps(data_object),
+        'Body': img_data,
         'Bucket': test_bucket_name,
         'Key': 'this_is_my_test_key'
     }
@@ -147,7 +150,7 @@ def test_put_file_object_fail():
         with pytest.raises(Exception, match=r'Error saving to S3:.*?Msg from S3'):
             s3.set_bucket_name(test_bucket_name)
             s3.set_key_name('this_is_my_test_key')
-            s3.put_file_object(data_object)
+            s3.put_file_object(img_data)
 
 
 def test_get_data_object():
@@ -190,13 +193,16 @@ def test_get_data_object_fail():
             s3.get_data_object()
 
 
-def test_get_file_object():
-    data_object = {"hello": "this is some stuff"}
+def test_get_file_object(datadir):
     expected_params = {
         'Bucket': test_bucket_name,
         'Key': 'this_is_my_test_key'
     }
-    response = {'Body': pickle.dumps(data_object)}
+
+    with open(datadir.join('python-logo.png'), 'rb') as f:
+        img_data = f.read()
+
+    response = {'Body': img_data}
 
     s3 = S3(region_name='us-least-4')
 
@@ -206,7 +212,7 @@ def test_get_file_object():
         s3.set_bucket_name(test_bucket_name)
         s3.set_key_name('this_is_my_test_key')
         data_obj = s3.get_file_object()
-        assert data_obj['hello'] == 'this is some stuff'
+        assert data_obj == img_data
 
 
 def test_get_file_object_fail():
@@ -228,13 +234,16 @@ def test_get_file_object_fail():
             s3.get_file_object()
 
 
-def test_get_file_stream_object():
-    data_object = {"hello": "this is some stuff"}
+def test_get_file_stream_object(datadir):
     expected_params = {
         'Bucket': test_bucket_name,
         'Key': 'this_is_my_test_key'
     }
-    response = {'Body': io.BytesIO(pickle.dumps(data_object))}
+
+    with open(datadir.join('python-logo.png'), 'rb') as f:
+        img_data = f.read()
+
+    response = {'Body': io.BytesIO(img_data)}
 
     s3 = S3(region_name='us-least-4')
 
@@ -244,7 +253,7 @@ def test_get_file_stream_object():
         s3.set_bucket_name(test_bucket_name)
         s3.set_key_name('this_is_my_test_key')
         data_obj = s3.get_streaming_file_object()
-        assert data_obj['hello'] == 'this is some stuff'
+        assert data_obj == img_data
 
 
 def test_get_file_stream_object_fail():

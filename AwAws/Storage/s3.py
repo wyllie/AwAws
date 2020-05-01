@@ -1,5 +1,4 @@
 import json
-import pickle
 
 from AwAws.Session.session import Session
 
@@ -50,11 +49,10 @@ class S3():
 
     def put_file_object(self, data):
         """store binary info - an image, encrypted data, word doc, etc"""
-        enc_data = pickle.dumps(data)
 
         try:
             res = self.s3.put_object(
-                Body=enc_data,
+                Body=data,
                 Bucket=self.bucket_name,
                 Key=self.key_name
             )
@@ -85,7 +83,7 @@ class S3():
         except Exception as e:
             raise Exception('Error reading from S3: ' + str(e))
 
-        return pickle.loads(obj['Body'])
+        return obj['Body']
 
 
     def get_streaming_file_object(self):
@@ -98,7 +96,7 @@ class S3():
         except Exception as e:
             raise Exception('Error reading from S3: ' + str(e))
 
-        return pickle.loads(obj['Body'].read())
+        return obj['Body'].read()
 
 
 
