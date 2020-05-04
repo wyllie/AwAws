@@ -33,7 +33,9 @@ mkvirtualenv -p python3 thaws (or thynk)
 pip install -r requirements.txt
 ```
 Now, `pytest` to make sure everything is setup correctly
-(`pytest -v` will give a list of all of the tests being run with statuses)
++ `pytest -v` will give a list of all of the tests being run with statuses
++ `pytest --flake8` to run syntax checking
++ `pytest --bandit` to run security checks
 
 ## Creating a Release
 No automatic way to do this right now.  Update the `setup.py` file
