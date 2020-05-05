@@ -37,7 +37,7 @@ class Lambda():
     def get_handler(cls, *args, **kwargs):
         def handler(event, context):
             if 'whipit' in event:
-                print('WHIP IT GOOD') # stay awake
+                print('WHIP IT GOOD')  # stay awake
                 time.sleep(0.5)
                 return 'whipped'
             return cls(*args, **kwargs).handle(event, context)

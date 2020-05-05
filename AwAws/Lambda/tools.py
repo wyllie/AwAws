@@ -1,4 +1,4 @@
-from ThAws.Session.session import Session
+from AwAws.Session.session import Session
 
 # https://youtu.be/RidtrSCogg0
 # the whipit function is used to keep lambdas warm.
@@ -63,7 +63,7 @@ class LambdaTools():
                             FunctionName=func_name,
                             InvocationType='Event',
                             Payload='{"whipit": "good"}')
-                        assert response['StatusCode'] == 202
+                        self.check_status(response['StatusCode'])
                         mesg[func_name]['response'].append(response)
                     except Exception as e:
                         mesg['status'] = 'failed'
@@ -72,3 +72,8 @@ class LambdaTools():
                         pass
 
         return mesg
+
+
+    def check_status(self, status):
+        if status != 202:
+            raise Exception('Execution failed - did not return 202')
