@@ -87,7 +87,12 @@ class S3():
 
 
     def get_streaming_file_object(self):
-        'for reading objects from s3'
+        '''
+        for reading objects from s3
+        retutns a binary object which can be decoded
+            with decode('utf-8') for example
+        '''
+
         try:
             obj = self.s3.get_object(
                 Bucket=self.bucket_name,
