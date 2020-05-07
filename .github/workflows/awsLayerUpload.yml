@@ -49,5 +49,5 @@ jobs:
           pip install . -t  python
           echo building release $release_id
           zip --quiet -r $release_id python
-          aws s3 cp $release_id $release_bucket_uri
+          aws s3 cp $release_id $release_bucket_uri/$release_id
 
