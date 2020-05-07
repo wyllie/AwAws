@@ -33,8 +33,7 @@ jobs:
           account_access_key_id: ${{ format('secrets.AWS_ACCESS_KEY_ID_{0}', github.actor )}}
         with:
           # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-access-key-id: |
-            $${ $account_access_key_id }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}_${{ github.actor }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
