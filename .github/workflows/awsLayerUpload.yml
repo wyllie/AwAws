@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Zip it all up and upload to S3
+      - name: Zip it all up and upload S3 - put github.actor in key
         env:
           release_bucket_uri: ${{ format('s3://net.build.andrewdev.github/AwAws/{0}', github.actor )}}
           release_id: ${{ format('AwAws/{0}/AwAws-{0}-dev.zip', github.head_ref )}}
