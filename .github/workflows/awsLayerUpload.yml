@@ -20,7 +20,7 @@ jobs:
   # For more info: https://github.com/aws-actions/configure-aws-credentials
 
   deploy:
-    name: Upload and Install Layer on AWS Lambda
+    name: Upload package to 'build' account
     runs-on: ubuntu-latest
 
     steps:
@@ -29,11 +29,8 @@ jobs:
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
-        env:
-          account_access_key_id: ${{ format('secrets.AWS_ACCESS_KEY_ID_{0}', github.actor )}}
         with:
-          # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_github.actor }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
@@ -44,10 +41,10 @@ jobs:
 
       - name: Zip it all up and upload to S3
         env:
-          release_bucket: net.dilex.andrewdev.github
-          release_bucket_uri: s3://net.dilex.andrewdev.github
-          release_id: ${{ format('AwAws-{0}-dev.zip', github.head_ref )}}
-          release_layer: ${{ format('AwAws-{0}-dev', github.head_ref )}}
+          release_bucket_uri: ${{ format('s3://net.build.andrewdev.github/AwAws/{0}', github.actor )}}
+          release_id: ${{ format('AwAws/{0}/AwAws-{0}-dev.zip', githugithub.head_ref )}}
+          # release_bucket: net.dilex.build.github
+          # release_layer: ${{ format('AwAws-{0}-dev', github.head_ref )}}
         run: |
           mkdir python
           pip install -r requirements/prod.txt -t python
@@ -55,5 +52,6 @@ jobs:
           echo building release $release_id
           zip --quiet -r $release_id python
           aws s3 cp $release_id $release_bucket_uri
-          aws lambda publish-layer-version --layer-name $release_layer  --content S3Bucket=$release_bucket,S3Key=$release_id --compatible-runtimes python3.8
+          # this last line would deploy the layer in lambda
+          # aws lambda publish-layer-version --layer-name $release_layer  --content S3Bucket=$release_bucket,S3Key=$release_id --compatible-runtimes python3.8
 
