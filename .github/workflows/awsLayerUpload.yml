@@ -20,7 +20,7 @@ jobs:
   # For more info: https://github.com/aws-actions/configure-aws-credentials
 
   deploy:
-    name: Upload zip to Amazon S3
+    name: Upload and Install Layer on AWS Lambda
     runs-on: ubuntu-latest
 
     steps:
