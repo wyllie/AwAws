@@ -20,7 +20,7 @@ jobs:
   # For more info: https://github.com/aws-actions/configure-aws-credentials
 
   deploy:
-    name: Upload zip to Amazon S3
+    name: Upload package to 'build' account
     runs-on: ubuntu-latest
 
     steps:
@@ -39,18 +39,15 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Zip it all up and upload to S3
+      - name: Zip it all up and upload S3 - put github.actor in key
         env:
-          release_bucket: net.dilex.andrewdev.github
-          release_bucket_uri: s3://net.dilex.andrewdev.github
+          release_bucket_uri: ${{ format('s3://net.dilex.build.github/AwAws/{0}', github.actor )}}
           release_id: ${{ format('AwAws-{0}-dev.zip', github.head_ref )}}
-          release_layer: ${{ format('AwAws-{0}-dev', github.head_ref )}}
         run: |
           mkdir python
           pip install -r requirements/prod.txt -t python
           pip install . -t  python
           echo building release $release_id
           zip --quiet -r $release_id python
-          aws s3 cp $release_id $release_bucket_uri
-          aws lambda publish-layer-version --layer-name $release_layer  --content S3Bucket=$release_bucket,S3Key=$release_id --compatible-runtimes python3.8
+          aws s3 cp $release_id $release_bucket_uri/$release_id
 
