@@ -41,7 +41,7 @@ jobs:
 
       - name: Zip it all up and upload S3 - put github.actor in key
         env:
-          release_bucket_uri: ${{ format('s3://net.dilex.build.deployments/AwAws/{0}', github.actor )}}
+          release_bucket_uri: ${{ format('s3://net.dilex.build.deployments/branch/AwAws/{0}', github.actor )}}
           release_id: ${{ format('AwAws-{0}-dev.zip', github.head_ref )}}
         run: |
           mkdir python
