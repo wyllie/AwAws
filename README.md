@@ -117,3 +117,6 @@ initials are AW and you are writing a wrapper for AWS boto it seems reasonable
 to just smush those things together to get AwAws.  In my head it's A W Aws, but
 I suspect people will just call is awaws (ah-whas) which is fine by me.
 
+
+This line is here to force a rebuild on github - it can safely be ignored 
+or even deleted to force another rebuild!
