@@ -17,6 +17,9 @@ Ultimately, this project is about creating a nice interface bewteen your code
 and Aws - so when boto4 comes out, all of the code that needs to be refactored
 all lives in one place.
 
+Ultimately, this package is used as a foundation for using AWS Lambda.  This
+package will typically be installed on Lamabda Service as a Layer.
+
 ## Install
 Steps to get up and running with AwAws:
 1) Install python virtualenvwrappers (if you don't already have it)
