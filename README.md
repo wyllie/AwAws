@@ -13,12 +13,13 @@ lot easier when using boto3 or botocore.  If you need the full power of boto3,
 then maybe this is not the module for you, if you are doing some simple things 
 in boto3 then you might find these wrappers fairly useful.
 
+This package is used as a foundation for using AWS Lambda. This
+package will typically be installed on Lamabda Service as a Layer.  
+
 Ultimately, this project is about creating a nice interface bewteen your code
 and Aws - so when boto4 comes out, all of the code that needs to be refactored
 all lives in one place.
 
-Ultimately, this package is used as a foundation for using AWS Lambda.  This
-package will typically be installed on Lamabda Service as a Layer.
 
 ## Install
 Steps to get up and running with AwAws:
