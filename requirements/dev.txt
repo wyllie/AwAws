@@ -13,6 +13,7 @@ botocore
 
 # install flake8 from master to avoid pycodestyle bug
 bandit
+bump2version
 coverage
 flake8
 mock>=3.0.4
