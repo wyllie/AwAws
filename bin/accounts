@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+import argparse
+import sys
+sys.path.append('.')
+sys.path.append('..')
+
+from AwAws.Organizations.accounts import Accounts
+from AwAws.Utils.env import Env
+
+
+# we need to be in the master account for this script to work
+parser = argparse.ArgumentParser()
+parser.add_argument('-a', '--account', help='root account to use')
+parser.add_argument('-p', '--profile', help='set aws profile')
+parser.add_argument('-n', '--name', help='name for new account')
+parser.add_argument('-e', '--email', help='email for new account')
+parser.add_argument('-r', '--role', help='role for new account account',
+                    default='OrganizationAccountAccessRole')
+parser.add_argument('action',
+                    choices=['list', 'root', 'ous', 'create'],
+                    help='list|root|ous')
+parser.add_argument('values', nargs='*', help='list')
+args = parser.parse_args()
+action = args.action
+
+if args.profile is not None:
+    env = Env()
+    env.set_env('AWS_PROFILE', args.profile)
+
+# set up accounts
+accounts = Accounts()
+
+if action == 'list':
+    if len(args.values) > 0:
+        # list accounts for the OU in args.values
+        org_unit = args.values.pop()
+        res = accounts.list_ou_accounts(org_unit)
+
+        for acct in res:
+            print(acct['Id'], acct['Name'])
+
+    else:
+        # just list all of the accounts
+        try:
+            accounts.list_accounts()
+        except Exception as e:
+            print('Make sure you using the correct profile:', e)
+            parser.print_usage()
+            exit()
+
+        for acc_id in accounts.accounts.keys():
+            print(acc_id, accounts.accounts[acc_id]['Name'])
+
+elif action == 'root':
+    accounts._set_root()
+    print(accounts.org_root)
+
+elif action == 'ous':
+    accounts.list_ous()
+
+    for ou_name in accounts.org_units.keys():
+        print(ou_name, accounts.org_units[ou_name]['Id'])
+
+elif action == 'create':
+    account_name = args.name
+    account_email = args.email
+    account_role = args.role
+    accounts.create_account(account_name, account_email, account_role)

@@ -13,9 +13,13 @@ lot easier when using boto3 or botocore.  If you need the full power of boto3,
 then maybe this is not the module for you, if you are doing some simple things 
 in boto3 then you might find these wrappers fairly useful.
 
+In particular, this package is used as a foundation for using AWS Lambda. This
+package will typically be installed on Lamabda Service as a Layer.  
+
 Ultimately, this project is about creating a nice interface bewteen your code
 and Aws - so when boto4 comes out, all of the code that needs to be refactored
 all lives in one place.
+
 
 ## Install
 Steps to get up and running with AwAws:
@@ -113,3 +117,7 @@ initials are AW and you are writing a wrapper for AWS boto it seems reasonable
 to just smush those things together to get AwAws.  In my head it's A W Aws, but
 I suspect people will just call is awaws (ah-whas) which is fine by me.
 
+
+This line is here to force a rebuild on github - it can safely be ignored 
+or even deleted to force another rebuild!
+Or just add some more lines - it's really up to you!
