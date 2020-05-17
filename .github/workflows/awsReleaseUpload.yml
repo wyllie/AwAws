@@ -10,7 +10,7 @@
 # dev environment on AWS BEFORE the code is merged into master.
 
 
-name: Build Lambda Layer
+name: Build Release Lambda Layer
 
 on:
   release:
