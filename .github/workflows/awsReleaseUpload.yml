@@ -41,7 +41,7 @@ jobs:
 
       - name: Build Layer, zip it all up and upload S3
         env:
-          release_bucket_uri: 's3://net.dilex.build.deployments/release/AwAws/'
+          release_bucket_uri: 's3://net.dilex.build.deployments/release/AwAws'
         run: |
           mkdir python
           pip install -r requirements/prod.txt -t python
