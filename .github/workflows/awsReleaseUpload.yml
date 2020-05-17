@@ -14,7 +14,7 @@ name: Build Lambda Layer
 
 on:
   release:
-    [created]
+    types: [created]
 
 jobs:
   # For more info: https://github.com/aws-actions/configure-aws-credentials
