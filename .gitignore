@@ -76,3 +76,6 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+# PyCharm cruft
+.idea/
