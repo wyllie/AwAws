@@ -1,13 +1,15 @@
 
 from AwAws.Events.events import Events
 
+
 class EventsBus():
     '''Class to manage EventBridge Events'''
 
     def __init__(self, region_name=None):
-        self.event_bus = 'default'
-        self.event = None
-        self.session = Session(region_name=region_name)
+        self.accounts = []
+        self.event_bus = 'event-bus/default'
+        self.events = None
+        # self.session = Session(region_name=region_name)
         self.events = self.session.get_client('events')
 
     def add_accounts(self, ou=None):
@@ -21,15 +23,11 @@ class EventsBus():
         region = self.events.get_region()
         resource_arn = ':'.join('arn', 'aws', 'events', region, account, self.event_bus)
 
-        event = Event()
-        event = {
-            'Source': source,
-            'Resources': [resource_arn],
-            'Detail': detail,
-            'EventBusName': event_bus
-        }
+        event = Events()
+        event.add_resources(resource_arn)
+        event.create_event(account)
 
-    def set_event_bus(self, bus_name=default):
+    def set_event_bus(self, bus_name='default'):
         '''describes and event bus'''
         self.event_bus = '/'.join(['event-bus', bus_name])
 
@@ -39,6 +37,6 @@ class EventsBus():
     def broadcast_event(self):
         '''Send an event to multiple event buses'''
         for account in self.accounts:
-            event = self.create_event(account, detail)
+            self.end_event(self.create_event(account))
 
 

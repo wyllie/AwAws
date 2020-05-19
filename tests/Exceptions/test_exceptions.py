@@ -48,7 +48,7 @@ def test_invalid_http_method():
         raise AwAwsInvalidHttpMethod('test it')
 
 
-def test_missing_param():
+def test_missing_param_again():
     some_data = {
         'this': True,
         'that': False,

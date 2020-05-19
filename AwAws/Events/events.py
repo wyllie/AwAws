@@ -1,5 +1,5 @@
 
-class Event:
+class Events:
     '''Class to create and manage EventBridge Events'''
 
     def __init__(self):
@@ -18,12 +18,15 @@ class Event:
             'Source': self.source,
             'Resources': [resource_arn],
             'Detail': self.detail,
-            'EventBusName': event_bus
+            'EventBusName': self.event_bus
         }
         return event
 
-    def set_event_bus(self, bus_name=default):
+    def set_event_bus(self, bus_name='default'):
         '''describes and event bus'''
         self.event_bus = '/'.join(['event-bus', bus_name])
+
+    def add_resource(self, resource_arn):
+        self.resources.append(resource_arn)
 
 
