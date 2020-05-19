@@ -47,3 +47,32 @@ class AwAwsMissingParameter(AwAwsException):
         self.append_message(message)
         self.pprint_message(parameters)
         self.throw_exception()
+
+
+class AwAwsConfigurationError(AwAwsException):
+    def __init__(self, message):
+        self.open_message()
+        self.append_message('Invalid Configuration: Missing required or expected parameter')
+        self.pprint_message(message)
+        self.throw_exception()
+
+
+class AwAwsInvalidEvent(AwAwsException):
+    def __init__(self, message):
+        self.open_message()
+        self.pprint_message('Invalid Event Syntax: ' + message)
+        self.throw_exception()
+
+
+class AwAwsInvalidHttpMethod(AwAwsException):
+    def __init__(self, method):
+        self.open_message()
+        self.pprint_message('Not a valid http method: ' + method)
+        self.throw_exception()
+
+
+class AwAwsMissingRequirement(AwAwsException):
+    def __init__(self, message):
+        self.open_message()
+        self.pprint_message('Missing Requirement: ' + message)
+        self.throw_exception()
