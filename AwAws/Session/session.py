@@ -1,5 +1,6 @@
 import botocore.session
 
+from AwAws.Session.sts import Sts
 from AwAws.Utils.env import Env
 
 # When setting the region, the env variable will be the lowest priority
@@ -8,10 +9,11 @@ from AwAws.Utils.env import Env
 #    + set by env
 
 
-class Session():
-    def __init__(self, region_name=None):
+class Session:
+    def __init__(self, region_name=None, role_arn=None):
         self.session = None
         self.region_name = region_name
+        self.role_arn = role_arn
         return None
 
 
@@ -30,12 +32,24 @@ class Session():
 
 
     def get_client(self, service):
+        '''set up a client for an AWS session'''
         if self.session is None:
             self._get_session()
         return self.session.create_client(service, region_name=self.get_region())
 
 
     def _get_session(self):
-        self.session = botocore.session.get_session()
+        '''set up an AWS session'''
+        if self.role_arn is not None:
+            sts = Sts(role_arn=self.role_arn)
+            credentials = sts.assume_role()
+            self.session = botocore.session.get_session(
+                aws_access_key_id=credentials['AccessKeyId'],
+                aws_secret_access_key=credentials['SecretAccessKey'],
+                aws_session_token=credentials['SessionToken']
+            )
+        else:
+            self.session = botocore.session.get_session()
+
         return self.session
 
