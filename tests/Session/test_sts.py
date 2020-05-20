@@ -1,15 +1,18 @@
+import inspect
 from mock import patch
 from AwAws.Session.sts import Sts
 
+test_role_arn = 'arn:aws:iam::111111111:role/net.dilex.some.test.role'
 
-def test_sts():
-    sts = Sts()
-    assert sts.master_account is None
-    assert sts.org_root is None
-    assert sts.org_unit is None
-    assert sts.org_units == {}
-    assert sts.accounts == {}
-    assert str(type(sts.sts)) == "<class 'botocore.client.STS'>"
+
+def test_init():
+    sts = Sts(role_arn=test_role_arn)
+    inspect.isclass(Sts)
+    assert isinstance(sts, Sts)
+    assert sts.role_arn == test_role_arn
+    assert sts.aws_access_key_id is None
+    assert sts.aws_secret_access_key is None
+    assert sts.aws_session_token is None
 
 
 @patch('AwAws.Session.sts.Sts.get_account_id')

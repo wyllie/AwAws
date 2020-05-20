@@ -3,11 +3,6 @@ import boto3
 
 class Sts():
     def __init__(self, role_arn=None):
-        self.accounts = {}
-        self.master_account = None
-        self.org_root = None
-        self.org_unit = None
-        self.org_units = {}
         self.role_arn = role_arn
         self.aws_access_key_id = None
         self.aws_secret_access_key = None
