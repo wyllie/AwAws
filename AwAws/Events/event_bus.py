@@ -1,16 +1,15 @@
 
 from AwAws.Events.events import Events
+from AwAws.Session.session import Session
 
 
-class EventsBus():
+class EventsBus:
     '''Class to manage EventBridge Events'''
 
-    def __init__(self, region_name=None):
+    def __init__(self, region_name=None, role_arn=None):
         self.accounts = []
         self.event_bus = 'event-bus/default'
-        self.events = None
-        # self.session = Session(region_name=region_name)
-        self.events = self.session.get_client('events')
+        self.events = Session(region_name, role_arn).get_client('events')
 
     def add_accounts(self, ou=None):
         '''add accounts to the broadcast list'''
