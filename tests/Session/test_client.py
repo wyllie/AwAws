@@ -1,7 +1,7 @@
 import inspect
 import os
 
-from unittest.mock import Mock, patch, ANY
+from unittest.mock import patch, ANY
 from AwAws.Session.session import Session
 
 
