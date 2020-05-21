@@ -1,18 +1,17 @@
-import time
 
 from AwAws.Session.session import Session
 from AwAws.Session.sts import Sts
 from AwAws.Utils.env import Env
 
 
-class Accounts():
-    def __init__(self):
+class Accounts:
+    def __init__(self, role_arn=None, region_name=None):
         self.master_account = None
         self.org_root = None
         self.org_unit = None
         self.org_units = {}
         self.accounts = {}
-        self.org = Session().get_client('organizations')
+        self.org = Session(role_arn=role_arn, region_name=region_name).get_client('organizations')
 
 
     def list_accounts(self):
@@ -59,37 +58,40 @@ class Accounts():
         return accs
 
 
-    def create_account(self, account_name, account_email,
-                       account_role='OrganizationAccountAccessRole'):
-        'create a new account and assign it to an ou'
-
-        try:
-            res = self.org.create_account(Email=account_email,
-                                          AccountName=account_name,
-                                          RoleName=account_role)
-        except Exception as e:
-            raise Exception('Error initializing create account', e)
-
-        # Now we are going to hang out and wait for the account to
-        # be created - takes a few minutes...
-
-        request_id = res.get('CreateAccountStatus').get('Id')
-        print('Account creation started, request_id:', request_id)
-        status = 'IN_PROGRESS'
-        status_response = None
-        while status == 'IN_PROGRESS':
-            status_response = self.org.describe_create_account_status(
-                CreateAccountRequestId=request_id)
-            status = status_response.get('CreateAccountStatus').get('State')
-            print('Create account status', status)
-            time.sleep(10)
-
-        if status == 'SUCCEEDED':
-            acc_id = status_response.get('CreateAccountStatus').get('AccountId')
-            self.account_id = acc_id
-        else:
-            reason = status_response.get('CreateAccountStatus').get('FailureReason')
-            print('Account creation failed', reason)
+    '''This works but I'm not sure how useful it is
+       to have in here - probably better to just do
+       this from the CLI or in the console'''
+#    def create_account(self, account_name, account_email,
+#                       account_role='OrganizationAccountAccessRole'):
+#        'create a new account and assign it to an ou'
+#
+#        try:
+#            res = self.org.create_account(Email=account_email,
+#                                          AccountName=account_name,
+#                                          RoleName=account_role)
+#        except Exception as e:
+#            raise Exception('Error initializing create account', e)
+#
+#        # Now we are going to hang out and wait for the account to
+#        # be created - takes a few minutes...
+#
+#        request_id = res.get('CreateAccountStatus').get('Id')
+#        print('Account creation started, request_id:', request_id)
+#        status = 'IN_PROGRESS'
+#        status_response = None
+#        while status == 'IN_PROGRESS':
+#            status_response = self.org.describe_create_account_status(
+#                CreateAccountRequestId=request_id)
+#            status = status_response.get('CreateAccountStatus').get('State')
+#            print('Create account status', status)
+#            time.sleep(10)
+#
+#        if status == 'SUCCEEDED':
+#            acc_id = status_response.get('CreateAccountStatus').get('AccountId')
+#            self.account_id = acc_id
+#        else:
+#            reason = status_response.get('CreateAccountStatus').get('FailureReason')
+#            print('Account creation failed', reason)
 
 
     def _set_master_account(self, account_number=None):
@@ -113,11 +115,3 @@ class Accounts():
         if self.org_root is None:
             res = self.org.list_roots()
             self.org_root = res['Roots'][0]['Id']
-
-        if self.org_root is None:
-            raise Exception('Could not set root account')
-
-
-
-
-    # list_children - gets all thr organizational units

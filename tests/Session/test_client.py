@@ -14,10 +14,18 @@ def test_session():
     assert isinstance(session, Session)
 
 
-def test_init_with_role():
+def test_init_with_role_and_region():
+    test_region_name = 'us-least-5'
     test_role_arn = 'arn:aws:iam::111111111:role/net.dilex.some.test.role'
-    session = Session(role_arn=test_role_arn)
+    session = Session(role_arn=test_role_arn, region_name=test_region_name)
     assert session.role_arn == 'arn:aws:iam::111111111:role/net.dilex.some.test.role'
+    assert session.region_name == 'us-least-5'
+
+
+def test_init_with_role_none():
+    test_role_arn = None
+    session = Session(role_arn=test_role_arn)
+    assert session.role_arn is None
 
 
 def test_session_region():

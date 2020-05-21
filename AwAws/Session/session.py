@@ -12,10 +12,11 @@ from AwAws.Utils.env import Env
 class Session:
     def __init__(self, region_name=None, role_arn=None):
         self.session = None
-        self.region_name = region_name
+        self.region_name = self.set_region(region_name)
         self.role_arn = role_arn
 
     def set_region(self, region_name=None):
+        '''we need to set a region if it is unset at this point'''
         env = Env()
 
         self.region_name = region_name
@@ -26,12 +27,6 @@ class Session:
 
     def get_region(self):
         return self.region_name
-
-#    def get_client(self, service):
-#        '''set up a client for an AWS session'''
-#        if self.session is None:
-#            self._get_session()
-#        return self.session.create_client(service, region_name=self.get_region())
 
     def get_client(self, service):
         '''set up an AWS session'''
