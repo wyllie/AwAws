@@ -1,5 +1,6 @@
 import botocore.session
 
+from functools import lru_cache
 from AwAws.Session.sts import Sts
 from AwAws.Utils.env import Env
 
@@ -30,12 +31,22 @@ class Session:
 
     def get_client(self, service):
         '''set up an AWS session'''
+        return self._cached_connection(
+            service,
+            role_arn=self.role_arn,
+            region_name=self.get_region()
+        )
+
+    @classmethod
+    @lru_cache(100)  # potentially cache 100 services??
+    def _cached_connection(cls, service, role_arn=None, region_name=None):
+        '''set up an AWS session'''
         access_key = None
         secret_key = None
         session_token = None
 
-        if self.role_arn is not None:
-            sts = Sts(role_arn=self.role_arn)
+        if role_arn is not None:
+            sts = Sts(role_arn=role_arn)
             sts.assume_role()
             access_key = sts.aws_access_key_id
             secret_key = sts.aws_secret_access_key
@@ -47,8 +58,9 @@ class Session:
             aws_access_key_id=access_key,
             aws_secret_access_key=secret_key,
             aws_session_token=session_token,
-            region_name=self.get_region()
+            region_name=region_name
         )
 
         return client
+
 

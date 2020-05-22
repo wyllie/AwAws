@@ -61,11 +61,11 @@ def test_session_region_env():
 @patch('AwAws.Session.sts.Sts.assume_role', autospec=True, return_value=None)
 def test_client_with_service(sts, cc):
     session = Session()
-    chk = session.get_client('ssm')
+    chk = session.get_client('project-grand-slam')
     assert chk == 'boto!'
     cc.assert_called_with(
         ANY,
-        'ssm',
+        'project-grand-slam',
         aws_access_key_id=None,
         aws_secret_access_key=None,
         aws_session_token=None,
@@ -85,13 +85,13 @@ def test_get_client_with_role(sts, cc):
 
     test_role_arn = 'arn:aws:iam::111111111:role/net.dilex.some.test.role'
     session = Session(role_arn=test_role_arn)
-    chk = session.get_client('ssm')
+    chk = session.get_client('project-grand-slam')
 
     assert chk == 'boto!'
     cc.assert_called_once()
     cc.assert_called_with(
         ANY,
-        'ssm',
+        'project-grand-slam',
         aws_access_key_id='my_access_key',
         aws_secret_access_key='my_secret_key',
         aws_session_token='my_session_token',
