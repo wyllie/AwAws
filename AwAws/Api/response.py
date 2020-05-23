@@ -75,20 +75,15 @@ class Response():
 
     def set_header(self, key, value=None):
         """Set the a header on this response"""
-        try:
-            assert key is not None
-        except Exception as e:
-            raise Exception('a header key is required; %s', e)
+        if key is None:
+            raise Exception('a header key is required; %s')
         self.headers[key] = value
 
 
     def _build_response(self):
-        try:
-            assert self.status_code > 0
-            assert self.headers is not None
-        except Exception as e:
+        if self.status_code <= 0 or self.headers is None:
             raise Exception("Response not well formed, Status: %s, Headers: %s, Body: %s - %s",
-                            self.status_code, self.headers, self.body, e)
+                            self.status_code, self.headers, self.body)
 
         return {
             "statusCode": self.status_code,
