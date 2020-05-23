@@ -45,15 +45,11 @@ class Event():
 
     def set_http_method(self):
         """get the http method on the incoming event"""
-        try:
-            assert self.event is not None
-        except AssertionError:
+        if self.event is None:
             raise AwAwsMissingRequirement('Event not set: use event.set_event()')
 
-        try:
-            method = str.upper(self.event['httpMethod'])
-            assert method in Event.HTTP_METHODS
-        except AssertionError:
+        method = str.upper(self.event['httpMethod'])
+        if method not in Event.HTTP_METHODS:
             raise AwAwsInvalidHttpMethod(method)
 
         self.method = method
@@ -61,9 +57,7 @@ class Event():
 
     def set_body(self):
         """grab the body section from the incoming event (if it exists)"""
-        try:
-            assert self.event is not None
-        except AssertionError:
+        if self.event is None:
             raise AwAwsMissingRequirement('Event not set: use event.set_event()')
 
         try:
@@ -72,19 +66,17 @@ class Event():
             return  # body not set, don't do anything
 
         try:
-            assert self.event['isBase64Encoded'] is True
-            self.body = json.loads(base64.b64decode(self.event['body']))
-        except AssertionError:
-            self.body = self.event['body']
+            if self.event['isBase64Encoded'] is True:
+                self.body = json.loads(base64.b64decode(self.event['body']))
+            else:
+                self.body = self.event['body']
         except Exception as e:
             raise Exception('Error decoding event body' + str(e))
 
 
     def set_qstring_params(self):
         """get the query string params from the event"""
-        try:
-            assert self.event is not None
-        except AssertionError:
+        if self.event is None:
             raise AwAwsMissingRequirement('Event not set: use event.set_event()')
 
         try:
@@ -95,9 +87,7 @@ class Event():
 
     def set_path_params(self):
         """get the path parameters from the event"""
-        try:
-            assert self.event is not None
-        except AssertionError:
+        if self.event is None:
             raise AwAwsMissingRequirement('Event not set: use event.set_event()')
 
         try:
