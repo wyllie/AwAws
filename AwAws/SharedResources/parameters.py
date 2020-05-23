@@ -1,13 +1,14 @@
 from AwAws.Session.session import Session
 
 
-class Parameters():
+class Parameters:
     def __init__(self, env=None, service=None, name=None):
 
         self.env = env
         self.service = service
         self.name = name
         self.value = None
+        self.ssm = None
         self.fully_qualified_name = self.fully_qualified_parameter_name()
 
 

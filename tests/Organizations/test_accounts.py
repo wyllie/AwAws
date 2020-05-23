@@ -149,6 +149,14 @@ def test_set_master_account_fail():
         accounts._set_master_account()
 
 
+@patch('AwAws.Session.sts.Sts.get_account_id')
+def test_set_master_account_fail2(sts):
+    sts.return_value = None
+    accounts = Accounts()
+    with pytest.raises(Exception, match=r'Master Account not set, check AW_MASTER'):
+        accounts._set_master_account()
+
+
 def test_set_root():
     response = {
         'Roots': [

@@ -9,14 +9,13 @@ import time
 # function code and just returns a success
 
 
-class Lambda():
+class Lambda:
     def __init__(self):
         # the lambda env uses /var/task/lib to store code
         sys.path.append('/var/task/lib')
         dir_path = os.path.dirname(os.path.realpath(__file__))
         sys.path.append(os.path.join(dir_path, 'lib'))
         self.status = 'ok'
-
 
     def do_something(self):
         return 'ok'
