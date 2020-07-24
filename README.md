@@ -5,7 +5,7 @@ Dilex AWS Botocore/Boto3 Wrapper SDK
 
 ## Why?
 
-Yeah, boto3 is awsome but it's also pretty dense.  Using a service like SQS
+Yeah, boto3 is awesome but it's also pretty dense.  Using a service like SQS
 is a real pain when you have to deal with stuff on the JSON level, especially
 when a lot of options in there is not really are that useful.  That said, the
 main idea behind this module is to provide a simple interface to make life a 
@@ -23,7 +23,7 @@ all lives in one place.
 
 ## Install
 Steps to get up and running with AwAws:
-1) Install python virtualenvwrappers (if you don't already have it)
+1) Install python virtualenvwrapper (if you don't already have it)
    More info at: https://virtualenvwrapper.readthedocs.io/en/latest/
    or this awesome blog post: https://www.dilex.net/data-blog/python-virtual-environments-on-osx
 
