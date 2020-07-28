@@ -23,6 +23,6 @@ class Resource:
         return self._cached_connection(resource, region_name=self.region_name)
 
     @classmethod
-    @lru_cache(100) # potentially cache 100 resources
+    @lru_cache(100)  # potentially cache 100 resources
     def _cached_connection(cls, resource, region_name=None):
         return boto3.resource(resource, region_name=region_name)
