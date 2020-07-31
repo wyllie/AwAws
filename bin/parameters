@@ -10,39 +10,34 @@ from AwAws.SharedResources.parameters import Parameters
 parser = argparse.ArgumentParser()
 parser.add_argument('-s', '--service', help='service to access')
 parser.add_argument('-n', '--name', help='name of paramter')
-parser.add_argument('-e', '--env', default='dev',
-                    help='environment to use (default: %(default)s')
+parser.add_argument('-a', '--account', help='account to use (not implemented)')
 parser.add_argument('-r', '--region', default='us-east-2',
                     help='region to use (default: %(default)s')
 parser.add_argument('-v', '--value', help='value to set')
-parser.add_argument('-o', '--overwrite', default=False,
-                    action='store_true', help='overwrite existing value')
 args = parser.parse_args()
 
-env = args.env
+account = args.account
 service = args.service
 name = args.name
 new_value = args.value
-overwrite = args.overwrite
-
-params = Parameters(env, service, name)
-params.get_client()
-value = params.get()
 
 
-print('Current Value:', value)
+params = Parameters(service)
+
+try:
+    value = params.get_param_value(name)
+    print('Parameter:', name, 'Value:', value)
+except RuntimeError:
+    print('Parameter', name, 'is not set')
+
 
 if new_value is not None:
     try:
-        version = params.put(new_value, overwrite)
-        assert params.get() == new_value
+        version = params.put_param(name, new_value)
+        assert params.get_param_value(name) == new_value
     except (RuntimeError, AssertionError) as e:
         print('Error updating value:', str(e))
         exit()
 
-    print('Value for', params.fully_qualified_parameter_name(), 'is', new_value)
-
-
-
-
+    print('Value for', name, 'is', new_value)
 
