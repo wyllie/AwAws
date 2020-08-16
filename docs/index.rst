@@ -10,10 +10,10 @@ AwAws Wrapper
    :maxdepth: 2
    :caption: Contents:
 
-   api
-   config
-   kms
-   xray
+   rst/api
+   rst/config
+   rst
+   rst/xray
 
 
 Indices and tables
