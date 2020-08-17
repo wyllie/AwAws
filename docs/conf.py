@@ -23,7 +23,7 @@ copyright = '2020, Dilex Networks'
 author = 'Dilex Networks'
 
 # The full version, including alpha/beta/rc tags
-release = 'vrelease==0.0.17'
+release = 'v0.0.17'
 
 
 # -- General configuration ---------------------------------------------------
