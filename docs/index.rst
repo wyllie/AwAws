@@ -1,7 +1,7 @@
 .. AwAws documentation master file
 
-AwAws Wrapper
-=======================
+AwAws a boto3/botocore Wrapper
+==============================
 
 .. toctree::
    :maxdepth: 2
@@ -9,7 +9,6 @@ AwAws Wrapper
 
    rst/api
    rst/db
-   rst/config
    rst/kms
    rst/xray
 
