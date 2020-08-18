@@ -12,7 +12,7 @@ AwAws Wrapper
 
    rst/api
    rst/config
-   rst
+   rst/kms
    rst/xray
 
 

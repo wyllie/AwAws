@@ -3,38 +3,62 @@ Dilex AWS Botocore/Boto3 Wrapper SDK
 
 ![Python application](https://github.com/DilexNetworks/AwAws/workflows/Python%20application/badge.svg)
 
+AwAws is a Python wrapper around the boto3/botocore libraries provided by AWS.
+It was written to be installed as a layer on AWS Lambda and is primarily intended
+to be used with serverless applications (Lambda functions) on AWS.  That said, the
+library can also be used with any Python program that needs access to AWS APIs
+including local command line tools or daemons running on EC2/ECS/Fargate, etc.
+
 ## Why?
 
-Yeah, boto3 is awesome but it's also pretty dense.  Using a service like SQS
-is a real pain when you have to deal with stuff on the JSON level, especially
-when a lot of options in there is not really are that useful.  That said, the
-main idea behind this module is to provide a simple interface to make life a 
-lot easier when using boto3 or botocore.  If you need the full power of boto3,
-then maybe this is not the module for you, if you are doing some simple things 
-in boto3 then you might find these wrappers fairly useful.
+boto3/botocore packages from AWS are awesome but also pretty dense.  Using a 
+service like SQS is a real pain when you have to deal with stuff
+on the JSON level, especially when a lot of options in there that are not
+commonly used.  That said, the main idea behind this module
+is to provide a simple interface to make life a lot easier when
+using boto3 or botocore.  If you need the full power of boto3, then
+maybe this is not the module for you, if you are doing some simple things
+in boto3 then you might find these wrappers fairly useful.  While this module
+attempts to provide a simpler interface to AWS, it also exposes the boto interfaces
+as well for the cases where the AwAws has not covered an existing interface.
+
+This package also attempts to make it easier to work with lambda functions.  Some of the
+features here include:
+* minimize the amount of code in lambda functions - makes them easy to read and test
+* automatic caching of client/resource handlers to keep things running as fast as possible
+* lambda functions can be defined as classes - gives your functions a standard toolkit
+that can be used to implement functions that 'keep lambdas warm' or use observability
+tools like XRay.
+* pulls in other commonly used aws sdks including:
+  * aws-encryption-sdk
+  * aws-xray-sdk
 
 In particular, this package is used as a foundation for using AWS Lambda. This
-package will typically be installed on Lamabda Service as a Layer.  
+package will typically be installed on Lambda Service as a Layer.
 
-Ultimately, this project is about creating a nice interface bewteen your code
+Ultimately, this project is about creating a nice interface between your code
 and Aws - so when boto4 comes out, all of the code that needs to be refactored
 all lives in one place.
 
+## Install for production
 
-## Install
+The easiest way to use this library is to reference the lambda layer location
+which is available here:
+
+## Install for developers
 Steps to get up and running with AwAws:
-1) Install python virtualenvwrapper (if you don't already have it)
+1. Install python virtualenvwrapper (if you don't already have it)
    More info at: https://virtualenvwrapper.readthedocs.io/en/latest/
    or this awesome blog post: https://www.dilex.net/data-blog/python-virtual-environments-on-osx
 
-2) Create a new virtual environment:
+2. Create a new virtual environment:
 ```
-mkvirtualenv -p python3 thaws (or thynk)
+mkvirtualenv -p python3 awaws (or whatever you want to call it)
 ```
 
-3) Install all of the required modules:
+3. Install all of the required modules for development:
 ```
-pip install -r requirements.txt
+pip install -r dev/requirements.txt
 ```
 Now, `pytest` to make sure everything is setup correctly
 + `pytest -v` will give a list of all of the tests being run with statuses
@@ -116,10 +140,3 @@ One of the hardest things in computer programming is naming things. So when your
 initials are AW and you are writing a wrapper for AWS boto it seems reasonable
 to just smush those things together to get AwAws.  In my head it's A W Aws, but
 I suspect people will just call is awaws (ah-whas) which is fine by me.
-
-
-This line is here to force a rebuild on github - it can safely be ignored 
-or even deleted to force another rebuild!
-Or just add some more lines - it's really up to you!
-Sometimes GitHub crashes so you need to make a small change to get the check to
-run again
