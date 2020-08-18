@@ -3,6 +3,12 @@ from AwAws.Session.resource import Resource
 
 
 class DynamoDb:
+    '''
+    :param table_name: set dynamodb to use
+    :param region_name: the region we are running in
+    .. note:: *self.table*: contains ref to dynamo table resource
+    '''
+
     def __init__(self, table_name, region_name=None):
         self.table_name = table_name
         self.dynamo = Resource(region_name).get_resource('dynamodb')
@@ -36,7 +42,7 @@ class DynamoDb:
 
 
     def _get_table_object(self):
-        'gets a dynamodb.Table resource'
+        '**Private**: gets a dynamodb.Table resource'
         try:
             table = self.dynamo.Table(self.table_name)
         except Exception as e:
