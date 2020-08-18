@@ -43,17 +43,17 @@ class KMS:
 
     def set_key_provider(self):
         'called by en(de)crypt_it(), get the master key provider'
-        try:
-            assert len(self.enc_regions) > 0
-            assert len(self.master_keys) > 0
 
+
+        if (len(self.enc_regions)) <= 0 or (len(self.master_keys) <= 0):
+            raise Exception('Region or Master Keys not set')
+
+        try:
             self.key_provider = aes.KMSMasterKeyProvider(
                 botocore_session=self.kms,
                 key_ids=self.master_keys,
                 region_names=self.enc_regions
             )
-        except AssertionError:
-            raise Exception('Region or Master Keys not set')
         except Exception as e:
             raise Exception('Could not set key_provider', e)
 
@@ -94,9 +94,7 @@ class KMS:
             source=cipher_obj['cipher_text'],
             key_provider=self.key_provider
         )
-        try:
-            assert cipher_obj['encryptor_header'] == decryptor_header
-        except AssertionError:
+        if cipher_obj['encryptor_header'] != decryptor_header:
             raise Exception('Encryption headers do not match!!!')
 
         return decrypted_text
