@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SharedResources" href="shared.html" />
+    <link rel="prev" title="Security" href="security.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="shared.html" title="SharedResources"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="security.html" title="Security"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Session</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="session">
+<h1>Session<a class="headerlink" href="#session" title="Permalink to this headline">¶</a></h1>
+<p>These are the main modules that connect to AWS.  Since AwAws was orginally
+intended to be used from Lamda functions, these modules implement caching
+techniques to take adavanatge of Lambda function warm starts.</p>
+<p>Generally speaking, the modules here are only used by other modules in the AwAws
+package.  That said, this module can be used directly to connect to AWS using
+either boto3 or botocore.  The advantage is that you still get to take
+advantage of the caching which can give a significant speed improvement when
+using lambda functions.</p>
+<span class="target" id="module-AwAws.Session"></span><div class="section" id="id1">
+<h2>Session<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Manage AWS client sessions - usually built directly through botocore.</p>
+<dl class="py class">
+<dt id="AwAws.Session.session.Session">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Session.session.</code><code class="sig-name descname">Session</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">role_arn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Session.session.Session" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Session.session.Session.get_client">
+<code class="sig-name descname">get_client</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Session.session.Session.get_client" title="Permalink to this definition">¶</a></dt>
+<dd><p>set up an AWS session</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Session.session.Session.set_region">
+<code class="sig-name descname">set_region</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Session.session.Session.set_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>we need to set a region if it is unset at this point</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="resource">
+<h2>Resource<a class="headerlink" href="#resource" title="Permalink to this headline">¶</a></h2>
+<p>Manage AWS resource session - these are usually implemented through boto3.</p>
+<dl class="py class">
+<dt id="AwAws.Session.resource.Resource">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Session.resource.</code><code class="sig-name descname">Resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Session.resource.Resource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Session.resource.Resource.get_resource">
+<code class="sig-name descname">get_resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">resource</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Session.resource.Resource.get_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>set up and AWS resource</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Session.resource.Resource.set_region_name">
+<code class="sig-name descname">set_region_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Session.resource.Resource.set_region_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>we need to set a region name if it is not set yet</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Session</a><ul>
+<li><a class="reference internal" href="#id1">Session</a></li>
+<li><a class="reference internal" href="#resource">Resource</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="security.html"
+                        title="previous chapter">Security</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="shared.html"
+                        title="next chapter">SharedResources</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/session.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="shared.html" title="SharedResources"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="security.html" title="Security"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Session</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,269 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Db" href="db.html" />
+    <link rel="prev" title="AwAws a boto3/botocore Wrapper" href="../index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="db.html" title="Db"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="AwAws a boto3/botocore Wrapper"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Api.api">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-AwAws.Api.api" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-AwAws.Api.event"></span><span class="target" id="module-AwAws.Api.response"></span><div class="section" id="apigateway">
+<h2>ApiGateway<a class="headerlink" href="#apigateway" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="AwAws.Api.api.ApiGateway">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Api.api.</code><code class="sig-name descname">ApiGateway</code><a class="headerlink" href="#AwAws.Api.api.ApiGateway" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<p>Typically, when processing requests from ApiGateway, both the Event
+and Response calsses are required.  This class initiallizes and exposes
+both of those classes for easier use.  The Event class is used to prarse
+data from the incoming request from Api Gateway while the Response class
+offers a bunch of pre-canned responses that are formatted correctly for
+ApiGateway.</p>
+<p>Typical usage in a Lambda:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+    <span class="n">api</span> <span class="o">=</span> <span class="n">ApiGateway</span><span class="p">()</span>
+    <span class="n">api</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">parse_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+    <span class="c1"># now api.event contains all of the event&#39;s properties</span>
+    <span class="k">if</span> <span class="n">api</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="n">method</span> <span class="o">!=</span> <span class="s1">&#39;PUT&#39;</span>
+        <span class="k">return</span> <span class="n">api</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">error_4XX</span><span class="p">(</span><span class="s1">&#39;PUT method required&#39;</span><span class="p">)</span>
+
+    <span class="n">params</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">params</span>   <span class="c1"># a dictionary of incoming parameters</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">path</span>       <span class="c1"># the incoming path for this request</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">event</span><span class="o">.</span><span class="n">body</span>       <span class="c1"># incoming data</span>
+
+    <span class="c1"># -- do your thing here ---</span>
+
+    <span class="c1"># create a response</span>
+    <span class="n">response_body</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;all_good&#39;</span><span class="p">:</span> <span class="s1">&#39;some data to return&#39;</span><span class="p">}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">response</span><span class="o">.</span><span class="n">ok_200</span><span class="p">(</span><span class="n">body</span><span class="o">=</span><span class="n">response_body</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">response</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Should also include a <code class="docutils literal notranslate"><span class="pre">Context</span></code> class</p>
+</div>
+</div>
+<div class="section" id="event">
+<h2>Event<a class="headerlink" href="#event" title="Permalink to this headline">¶</a></h2>
+<p>Used from ApiGateway class</p>
+<dl class="py class">
+<dt id="AwAws.Api.event.Event">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Api.event.</code><code class="sig-name descname">Event</code><a class="headerlink" href="#AwAws.Api.event.Event" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt><strong>Attributes</strong>:</dt><dd><ul class="simple">
+<li><p><strong>event</strong>: (<em>dict</em>), None - the raw incoming event</p></li>
+<li><p><strong>method</strong>: (<em>string</em>), ‘ANY’ -  http method</p></li>
+<li><p><strong>params</strong>: (<em>dict</em>), {} - qstring params</p></li>
+<li><p><strong>path</strong>:  (<em>string</em>), None - incoming path</p></li>
+<li><p><strong>body</strong>: (<em>string</em>), {} - incoming data</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>AwAwsInvalidHttpMethod, AwAwsMissingRequirement</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt id="AwAws.Api.event.Event.HTTP_METHODS">
+<code class="sig-name descname">HTTP_METHODS</code><em class="property"> = ['ANY', 'DELETE', 'GET', 'PATCH', 'POST', 'PUT']</em><a class="headerlink" href="#AwAws.Api.event.Event.HTTP_METHODS" title="Permalink to this definition">¶</a></dt>
+<dd><p>Allowed HTTP Methods</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.event.Event.parse_event">
+<code class="sig-name descname">parse_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.event.Event.parse_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>grab the api gateway event and parse out the good bits</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.event.Event.set_body">
+<code class="sig-name descname">set_body</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.event.Event.set_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>grab the body section from the incoming event (if it exists)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.event.Event.set_event">
+<code class="sig-name descname">set_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.event.Event.set_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>load the incoming event</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.event.Event.set_http_method">
+<code class="sig-name descname">set_http_method</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.event.Event.set_http_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the http method on the incoming event</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.event.Event.set_path_params">
+<code class="sig-name descname">set_path_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.event.Event.set_path_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the path parameters from the event</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.event.Event.set_qstring_params">
+<code class="sig-name descname">set_qstring_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.event.Event.set_qstring_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the query string params from the event</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="response">
+<h2>Response<a class="headerlink" href="#response" title="Permalink to this headline">¶</a></h2>
+<p>Used from ApiGateway class</p>
+<dl class="py class">
+<dt id="AwAws.Api.response.Response">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Api.response.</code><code class="sig-name descname">Response</code><a class="headerlink" href="#AwAws.Api.response.Response" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Api.response.Response.error_4XX">
+<code class="sig-name descname">error_4XX</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.response.Response.error_4XX" title="Permalink to this definition">¶</a></dt>
+<dd><p>send and error code (in the 400 range) - default to 422</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.response.Response.error_5XX">
+<code class="sig-name descname">error_5XX</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.response.Response.error_5XX" title="Permalink to this definition">¶</a></dt>
+<dd><p>send a system error code (in the 500 range)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.response.Response.ok_200">
+<code class="sig-name descname">ok_200</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">body</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.response.Response.ok_200" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a 200 status, set body if exists - can be type dict or json</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.response.Response.set_body">
+<code class="sig-name descname">set_body</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">body</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.response.Response.set_body" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the body of the response message</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.response.Response.set_header">
+<code class="sig-name descname">set_header</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.response.Response.set_header" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the a header on this response</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Api.response.Response.set_status_code">
+<code class="sig-name descname">set_status_code</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">status_code</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Api.response.Response.set_status_code" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only used if you need to override the status code</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">API</a><ul>
+<li><a class="reference internal" href="#apigateway">ApiGateway</a></li>
+<li><a class="reference internal" href="#event">Event</a></li>
+<li><a class="reference internal" href="#response">Response</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">AwAws a boto3/botocore Wrapper</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="db.html"
+                        title="next chapter">Db</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="db.html" title="Db"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="AwAws a boto3/botocore Wrapper"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">API</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

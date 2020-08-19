@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lambda &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Organizations" href="orgs.html" />
+    <link rel="prev" title="Events" href="events.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="orgs.html" title="Organizations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="events.html" title="Events"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Lambda</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Lambda.base">
+<span id="lambda"></span><h1>Lambda<a class="headerlink" href="#module-AwAws.Lambda.base" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-AwAws.Lambda.tools"></span><div class="section" id="id1">
+<h2>Lambda<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="AwAws.Lambda.base.Lambda">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Lambda.base.</code><code class="sig-name descname">Lambda</code><a class="headerlink" href="#AwAws.Lambda.base.Lambda" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Lambda.base.Lambda.get_aw_account">
+<code class="sig-name descname">get_aw_account</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Lambda.base.Lambda.get_aw_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns AwAws Account we are running in</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Lambda.base.Lambda.get_aw_env">
+<code class="sig-name descname">get_aw_env</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Lambda.base.Lambda.get_aw_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the AwAws environment if set</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Lambda.base.Lambda.get_env">
+<code class="sig-name descname">get_env</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Lambda.base.Lambda.get_env" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the given environment variable</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Lambda.base.Lambda.get_region">
+<code class="sig-name descname">get_region</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Lambda.base.Lambda.get_region" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns AWS Region we are running in</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="lambda-tools">
+<h2>Lambda Tools<a class="headerlink" href="#lambda-tools" title="Permalink to this headline">¶</a></h2>
+<p>Currently the only tool is called WhipIt.  It is meant to be installed
+in a lambda that is run by CloudWatch Events and run every 30 minutes
+or so.  When it runs, it invokes the lambdas in its target list but
+short circuits the logic of the lambda.  This keeps the lambda warm
+and helps to avoid, but does not eliminate, cold starts.</p>
+<dl class="py class">
+<dt id="AwAws.Lambda.tools.LambdaTools">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Lambda.tools.</code><code class="sig-name descname">LambdaTools</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Lambda.tools.LambdaTools" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Lambda.tools.LambdaTools.whipit">
+<code class="sig-name descname">whipit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Lambda.tools.LambdaTools.whipit" title="Permalink to this definition">¶</a></dt>
+<dd><p>this function can be used to keep lambdas warm</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Lambda</a><ul>
+<li><a class="reference internal" href="#id1">Lambda</a></li>
+<li><a class="reference internal" href="#lambda-tools">Lambda Tools</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="events.html"
+                        title="previous chapter">Events</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="orgs.html"
+                        title="next chapter">Organizations</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/lambda.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="orgs.html" title="Organizations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="events.html" title="Events"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Lambda</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Security &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Session" href="session.html" />
+    <link rel="prev" title="Organizations" href="orgs.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="session.html" title="Session"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="orgs.html" title="Organizations"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Security</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Security.kms">
+<span id="security"></span><h1>Security<a class="headerlink" href="#module-AwAws.Security.kms" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="kms">
+<h2>KMS<a class="headerlink" href="#kms" title="Permalink to this headline">¶</a></h2>
+<p>This library is used to implement <em>envelope</em> encryption on data objects.
+The idea is that there is a master key store in the AWS KMS system which
+is used to encrypt unique encryption keys which have been used to encrypt
+data objects.</p>
+<p>Usage looks something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AwAws.Security.kms</span> <span class="kn">import</span> <span class="n">KMS</span>
+
+<span class="n">test_obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;this&#39;</span><span class="p">:</span> <span class="s1">&#39;is a test&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;with&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;items&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;and&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;some&#39;</span><span class="p">:</span> <span class="s1">&#39;nested info&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">kms</span> <span class="o">=</span> <span class="n">KMS</span><span class="p">()</span>
+<span class="n">kms</span><span class="o">.</span><span class="n">set_encryption_regions</span><span class="p">(</span><span class="s1">&#39;us-east-2&#39;</span><span class="p">)</span>
+<span class="n">kms</span><span class="o">.</span><span class="n">set_master_keys</span><span class="p">(</span><span class="s1">&#39;arn:aws:kms:us-east-2:acct_num:key/key_id&#39;</span><span class="p">)</span>
+<span class="n">cipher_obj</span> <span class="o">=</span> <span class="n">kms</span><span class="o">.</span><span class="n">encrypt_object</span><span class="p">(</span><span class="n">test_obj</span><span class="p">)</span>
+<span class="n">decrypted_obj</span> <span class="o">=</span> <span class="n">kms</span><span class="o">.</span><span class="n">decrypt_object</span><span class="p">(</span><span class="n">cipher_obj</span><span class="p">)</span>
+
+<span class="c1"># Check it</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ENCRYPTED&#39;</span><span class="p">,</span> <span class="n">cipher_obj</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DECRYPTED&#39;</span><span class="p">,</span> <span class="n">decrypted_obj</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_obj</span> <span class="o">==</span> <span class="n">decrypted_obj</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Yeah! Got it!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt id="AwAws.Security.kms.KMS">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Security.kms.</code><code class="sig-name descname">KMS</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>region_name</strong> – the region we are using</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two type of regions being used here:</p>
+<ol class="arabic simple">
+<li><p>the region we are connecting to to run the code</p></li>
+<li><p>the regions(s) where we want to run the encryption since
+KMS encryption keys are region specific and cannot be copied
+across regions</p></li>
+</ol>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>in order to use multiple regions, multiple master_keys
+also need to be defined</p>
+</div>
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.decrypt_it">
+<code class="sig-name descname">decrypt_it</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cipher_obj</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.decrypt_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>decrypt encrypted text</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.decrypt_object">
+<code class="sig-name descname">decrypt_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cipher_object</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.decrypt_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns python object from a given cipher object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.encrypt_it">
+<code class="sig-name descname">encrypt_it</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">text_to_encrypt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.encrypt_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>encrypt a block of text</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.encrypt_object">
+<code class="sig-name descname">encrypt_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_to_encrypt</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.encrypt_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>encrypt a python object</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.set_encryption_regions">
+<code class="sig-name descname">set_encryption_regions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">regions</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.set_encryption_regions" title="Permalink to this definition">¶</a></dt>
+<dd><p>master encryption keys are locked to a specific region</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.set_key_provider">
+<code class="sig-name descname">set_key_provider</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.set_key_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>called by en(de)crypt_it(), get the master key provider</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Security.kms.KMS.set_master_keys">
+<code class="sig-name descname">set_master_keys</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">master_keys</span><span class="o">=</span><span class="default_value">[]</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Security.kms.KMS.set_master_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of master keys to use</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Security</a><ul>
+<li><a class="reference internal" href="#kms">KMS</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="orgs.html"
+                        title="previous chapter">Organizations</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="session.html"
+                        title="next chapter">Session</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/security.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="session.html" title="Session"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="orgs.html" title="Organizations"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Security</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

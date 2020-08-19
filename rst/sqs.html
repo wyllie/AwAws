@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQS &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Storage" href="storage.html" />
+    <link rel="prev" title="SharedResources" href="shared.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="storage.html" title="Storage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="shared.html" title="SharedResources"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SQS</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.SQS">
+<span id="sqs"></span><h1>SQS<a class="headerlink" href="#module-AwAws.SQS" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>SQS<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Tools to read, write and manage SQS queues</p>
+<dl class="py class">
+<dt id="AwAws.SQS.sqs.SQS">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.SQS.sqs.</code><code class="sig-name descname">SQS</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">role_arn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SQS.sqs.SQS" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.SQS.sqs.SQS.queue_url">
+<code class="sig-name descname">queue_url</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">qname</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SQS.sqs.SQS.queue_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>given the queue name, get the associated URL</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.SQS.sqs.SQS.read_from_sqs">
+<code class="sig-name descname">read_from_sqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">waittime</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SQS.sqs.SQS.read_from_sqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>set a waittime to enable long polling</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.SQS.sqs.SQS.remove_from_sqs">
+<code class="sig-name descname">remove_from_sqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">receipt_handle</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SQS.sqs.SQS.remove_from_sqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>remove a message from a queue</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.SQS.sqs.SQS.send_to_sqs">
+<code class="sig-name descname">send_to_sqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SQS.sqs.SQS.send_to_sqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>send a message to a queue</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.SQS.sqs.SQS.send_to_sqs_fifo">
+<code class="sig-name descname">send_to_sqs_fifo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">dedup_id</span></em>, <em class="sig-param"><span class="n">group_id</span><span class="o">=</span><span class="default_value">'standard'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SQS.sqs.SQS.send_to_sqs_fifo" title="Permalink to this definition">¶</a></dt>
+<dd><p>send a message to a FIFO queue</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SQS</a><ul>
+<li><a class="reference internal" href="#id1">SQS</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="shared.html"
+                        title="previous chapter">SharedResources</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="storage.html"
+                        title="next chapter">Storage</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/sqs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="storage.html" title="Storage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="shared.html" title="SharedResources"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SQS</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

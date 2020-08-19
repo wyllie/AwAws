@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Db &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Events" href="events.html" />
+    <link rel="prev" title="API" href="api.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="events.html" title="Events"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Db</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Db">
+<span id="db"></span><h1>Db<a class="headerlink" href="#module-AwAws.Db" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dynamodb">
+<h2>DynamoDb<a class="headerlink" href="#dynamodb" title="Permalink to this headline">¶</a></h2>
+<p>A very simple CRUD module for DynamoDB.  You will certainly
+want to do more that what is available here.  On the other hand,
+there is enough here to do simple proof of concept type builds
+where you just want to show that you are getting data in the
+database.</p>
+<dl class="py class">
+<dt id="AwAws.Db.dynamodb.DynamoDb">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Db.dynamodb.</code><code class="sig-name descname">DynamoDb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">table_name</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Db.dynamodb.DynamoDb" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>table_name</strong> – set dynamodb to use</p></li>
+<li><p><strong>region_name</strong> – the region we are running in</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>self.table</em>: contains ref to dynamo table resource</p>
+</div>
+<dl class="py method">
+<dt id="AwAws.Db.dynamodb.DynamoDb.delete_item">
+<code class="sig-name descname">delete_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">primary_key_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Db.dynamodb.DynamoDb.delete_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>delete an item from a dynamo table by primary key id</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Db.dynamodb.DynamoDb.get_item">
+<code class="sig-name descname">get_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">primary_key_id</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Db.dynamodb.DynamoDb.get_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>get an item from a dynamo table by primary key id</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Db.dynamodb.DynamoDb.put_item">
+<code class="sig-name descname">put_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Db.dynamodb.DynamoDb.put_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>put item in dynamoDb table</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Db.dynamodb.DynamoDb.query_by_partition_and_sort_key">
+<code class="sig-name descname">query_by_partition_and_sort_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">partition_key</span></em>, <em class="sig-param"><span class="n">partition_key_value</span></em>, <em class="sig-param"><span class="n">sort_key</span></em>, <em class="sig-param"><span class="n">sort_key_value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Db.dynamodb.DynamoDb.query_by_partition_and_sort_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a list of items by primary_key and sort_key</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Db.dynamodb.DynamoDb.query_by_partition_key">
+<code class="sig-name descname">query_by_partition_key</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">partition_key</span></em>, <em class="sig-param"><span class="n">partition_key_value</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Db.dynamodb.DynamoDb.query_by_partition_key" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a list of items by primary_key and sort_key</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Db</a><ul>
+<li><a class="reference internal" href="#dynamodb">DynamoDb</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="api.html"
+                        title="previous chapter">API</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="events.html"
+                        title="next chapter">Events</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/db.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="events.html" title="Events"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="api.html" title="API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Db</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

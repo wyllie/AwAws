@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SharedResources &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="SQS" href="sqs.html" />
+    <link rel="prev" title="Session" href="session.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sqs.html" title="SQS"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="session.html" title="Session"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SharedResources</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.SharedResources">
+<span id="sharedresources"></span><h1>SharedResources<a class="headerlink" href="#module-AwAws.SharedResources" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h2>
+<p>Connects to the SSM Parameter Store service on AWS.  This can
+be really handy for storing configuration parameters as well as
+things like passwords which can be stored securely.  Another
+nice benefit is that the parameter store service tracks the
+history of the parameters so you can see if/how they have changed
+over time.</p>
+<dl class="py class">
+<dt id="AwAws.SharedResources.parameters.Parameters">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.SharedResources.parameters.</code><code class="sig-name descname">Parameters</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">service</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">role_arn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SharedResources.parameters.Parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>parameters are store as &lt;service&gt;.&lt;param&gt; = value</p>
+<dl class="py method">
+<dt id="AwAws.SharedResources.parameters.Parameters.get_all">
+<code class="sig-name descname">get_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SharedResources.parameters.Parameters.get_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns all of the params related to this service</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.SharedResources.parameters.Parameters.get_param">
+<code class="sig-name descname">get_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SharedResources.parameters.Parameters.get_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a specific parameter from service</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.SharedResources.parameters.Parameters.put_param">
+<code class="sig-name descname">put_param</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">secure</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.SharedResources.parameters.Parameters.put_param" title="Permalink to this definition">¶</a></dt>
+<dd><p>stores a parameter in the SSM parameter store</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">SharedResources</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="session.html"
+                        title="previous chapter">Session</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sqs.html"
+                        title="next chapter">SQS</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/shared.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sqs.html" title="SQS"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="session.html" title="Session"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">SharedResources</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

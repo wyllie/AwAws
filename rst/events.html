@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Lambda" href="lambda.html" />
+    <link rel="prev" title="Db" href="db.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lambda.html" title="Lambda"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="db.html" title="Db"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Events</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Events.events">
+<span id="events"></span><h1>Events<a class="headerlink" href="#module-AwAws.Events.events" title="Permalink to this headline">¶</a></h1>
+<span class="target" id="module-AwAws.Events.event_bus"></span><div class="section" id="id1">
+<h2>Events<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="AwAws.Events.events.Events">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Events.events.</code><code class="sig-name descname">Events</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.events.Events" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to create and manage EventBridge Events</p>
+<dl class="py method">
+<dt id="AwAws.Events.events.Events.create_event">
+<code class="sig-name descname">create_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">account</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.events.Events.create_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an event that cen be written to an event-bus</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Events.events.Events.set_event_bus">
+<code class="sig-name descname">set_event_bus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_name</span><span class="o">=</span><span class="default_value">'default'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.events.Events.set_event_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>describes and event bus</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="eventbus">
+<h2>EventBus<a class="headerlink" href="#eventbus" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="AwAws.Events.event_bus.EventsBus">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Events.event_bus.</code><code class="sig-name descname">EventsBus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">role_arn</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.event_bus.EventsBus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to manage EventBridge Events</p>
+<dl class="py method">
+<dt id="AwAws.Events.event_bus.EventsBus.add_accounts">
+<code class="sig-name descname">add_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ou</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.event_bus.EventsBus.add_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>add accounts to the broadcast list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Events.event_bus.EventsBus.broadcast_event">
+<code class="sig-name descname">broadcast_event</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.event_bus.EventsBus.broadcast_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send an event to multiple event buses</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Events.event_bus.EventsBus.create_event">
+<code class="sig-name descname">create_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">account</span></em>, <em class="sig-param"><span class="n">source</span></em>, <em class="sig-param"><span class="n">detail</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.event_bus.EventsBus.create_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create an event that cen be written to an event-bus</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Events.event_bus.EventsBus.set_event_bus">
+<code class="sig-name descname">set_event_bus</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bus_name</span><span class="o">=</span><span class="default_value">'default'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Events.event_bus.EventsBus.set_event_bus" title="Permalink to this definition">¶</a></dt>
+<dd><p>describes and event bus</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Events</a><ul>
+<li><a class="reference internal" href="#id1">Events</a></li>
+<li><a class="reference internal" href="#eventbus">EventBus</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="db.html"
+                        title="previous chapter">Db</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="lambda.html"
+                        title="next chapter">Lambda</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/events.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="lambda.html" title="Lambda"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="db.html" title="Db"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Events</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

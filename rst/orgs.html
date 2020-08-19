@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Organizations &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Security" href="security.html" />
+    <link rel="prev" title="Lambda" href="lambda.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="security.html" title="Security"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lambda.html" title="Lambda"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Organizations</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Organizations">
+<span id="organizations"></span><h1>Organizations<a class="headerlink" href="#module-AwAws.Organizations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>Organizations<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Gets information about the organization we are running in.</p>
+<dl class="py class">
+<dt id="AwAws.Organizations.organization.Organizations">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Organizations.organization.</code><code class="sig-name descname">Organizations</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">role_arn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Organizations.organization.Organizations" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="accounts">
+<h2>Accounts<a class="headerlink" href="#accounts" title="Permalink to this headline">¶</a></h2>
+<p>Gets information about the accounts in our organization.</p>
+<dl class="py class">
+<dt id="AwAws.Organizations.accounts.Accounts">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Organizations.accounts.</code><code class="sig-name descname">Accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">role_arn</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Organizations.accounts.Accounts" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Organizations.accounts.Accounts.list_accounts">
+<code class="sig-name descname">list_accounts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Organizations.accounts.Accounts.list_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a listing of all accounts - index by account id</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Organizations.accounts.Accounts.list_ou_accounts">
+<code class="sig-name descname">list_ou_accounts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ou_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Organizations.accounts.Accounts.list_ou_accounts" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a list of accounts for an organizational unit</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Organizations.accounts.Accounts.list_ous">
+<code class="sig-name descname">list_ous</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Organizations.accounts.Accounts.list_ous" title="Permalink to this definition">¶</a></dt>
+<dd><p>get a list of top level organizational units (OUs)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Organizations</a><ul>
+<li><a class="reference internal" href="#id1">Organizations</a></li>
+<li><a class="reference internal" href="#accounts">Accounts</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="lambda.html"
+                        title="previous chapter">Lambda</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="security.html"
+                        title="next chapter">Security</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/orgs.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="security.html" title="Security"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lambda.html" title="Lambda"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Organizations</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

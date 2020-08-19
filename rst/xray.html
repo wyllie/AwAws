@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XRay &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Utilities" href="utils.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utilities"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">XRay</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.XRay.xray">
+<span id="xray"></span><h1>XRay<a class="headerlink" href="#module-AwAws.XRay.xray" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>XRay<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>This library is used to add XRay tracing and analytics to monitor our
+platform.  XRay is an AWS services that provides good insights into
+how our distibuted system is running.</p>
+<p>This system has a few pieces.  First you have to <strong>turn_it_on</strong> by
+either calling the constructor with turn_it_on=True or setting
+an environment variable (not implemented yet).</p>
+<ul class="simple">
+<li><p><strong>segments</strong>, and optional <strong>subsegments</strong> are used to identify different
+parts of the code in a heirarcial way.  Keep in mind that these need to
+be <em>closed</em>.</p></li>
+<li><p><strong>Annotations</strong> are used to orgainze/search for traces using the
+XRay console.</p></li>
+<li><p><strong>Metadata</strong> can be added to provide information about data being
+used in the trace.</p></li>
+</ul>
+<p>The way XRay is integrated with AWS Lambda is that the Lambda system
+uses the <em>segment</em> so only <em>subsegments</em> are available.  Trying to
+use <em>begin_segment</em> will throw some very odd errors when being used
+in a lambda (you have been warned).</p>
+<p>The imports on this module are called from within the constructor.
+The reason for this is that the xray-sdk needs to be loaded last
+so that it can patch the other SDKs.  This also allows us to easily
+turn the globally turn XRay feature on and off as well as moving all
+of the logic for on/off out of the caller functions.</p>
+<p>Usage in a lambda looks something like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">AwAws.Xray.xray</span> <span class="kn">import</span> <span class="n">Xray</span>
+
+<span class="n">test_obj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;this&#39;</span><span class="p">:</span> <span class="s1">&#39;is a test&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;with&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;items&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;and&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;some&#39;</span><span class="p">:</span> <span class="s1">&#39;nested info&#39;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">xray</span> <span class="o">=</span> <span class="n">XRay</span><span class="p">(</span><span class="n">turn_it_on</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># the default is off</span>
+<span class="n">kms</span> <span class="o">=</span> <span class="n">KMS</span><span class="p">()</span>
+<span class="n">xray</span><span class="o">.</span><span class="n">begin_subsegment</span><span class="p">(</span><span class="s1">&#39;kms&#39;</span><span class="p">)</span>  <span class="c1"># creates a subsegment called kms</span>
+<span class="n">kms</span><span class="o">.</span><span class="n">set_encryption_regions</span><span class="p">(</span><span class="s1">&#39;us-east-2&#39;</span><span class="p">)</span>
+<span class="n">kms</span><span class="o">.</span><span class="n">set_master_keys</span><span class="p">(</span><span class="s1">&#39;arn:aws:kms:us-east-2:acct_num:key/key_id&#39;</span><span class="p">)</span>
+<span class="n">cipher_obj</span> <span class="o">=</span> <span class="n">kms</span><span class="o">.</span><span class="n">encrypt_object</span><span class="p">(</span><span class="n">test_obj</span><span class="p">)</span>
+
+<span class="n">xray</span><span class="o">.</span><span class="n">put_annotation</span><span class="p">(</span><span class="s1">&#39;object_type&#39;</span><span class="p">,</span> <span class="s1">&#39;object_type_description&#39;</span><span class="p">)</span>  <span class="c1"># key/value</span>
+<span class="n">xray</span><span class="o">.</span><span class="n">put_metadata</span><span class="p">(</span><span class="s1">&#39;cipher_obj&#39;</span><span class="p">,</span> <span class="n">test_obj</span><span class="p">)</span>  <span class="c1"># add some info about the object</span>
+<span class="n">decrypted_obj</span> <span class="o">=</span> <span class="n">kms</span><span class="o">.</span><span class="n">decrypt_object</span><span class="p">(</span><span class="n">cipher_obj</span><span class="p">)</span>
+
+<span class="c1"># Check it</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;ENCRYPTED&#39;</span><span class="p">,</span> <span class="n">cipher_obj</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DECRYPTED&#39;</span><span class="p">,</span> <span class="n">decrypted_obj</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">test_obj</span> <span class="o">==</span> <span class="n">decrypted_obj</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Yeah! Got it!&#39;</span><span class="p">)</span>
+
+<span class="n">xray</span><span class="o">.</span><span class="n">end_subsegment</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="py class">
+<dt id="AwAws.XRay.xray.XRay">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.XRay.xray.</code><code class="sig-name descname">XRay</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">turn_it_on</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.XRay.xray.XRay.begin_segment">
+<code class="sig-name descname">begin_segment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">segment_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay.begin_segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>creates a new segment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.XRay.xray.XRay.begin_subsegment">
+<code class="sig-name descname">begin_subsegment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sub_segment_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay.begin_subsegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new segment - use this in lambda functions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.XRay.xray.XRay.end_segment">
+<code class="sig-name descname">end_segment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay.end_segment" title="Permalink to this definition">¶</a></dt>
+<dd><p>End/close the segment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.XRay.xray.XRay.end_subsegment">
+<code class="sig-name descname">end_subsegment</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay.end_subsegment" title="Permalink to this definition">¶</a></dt>
+<dd><p>End/close the subsegment</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.XRay.xray.XRay.put_annotation">
+<code class="sig-name descname">put_annotation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay.put_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Annotations are used for sorting/indexing traces</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.XRay.xray.XRay.put_metadata">
+<code class="sig-name descname">put_metadata</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key</span></em>, <em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.XRay.xray.XRay.put_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Metadata is any data that should be saved with the trace</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">XRay</a><ul>
+<li><a class="reference internal" href="#id1">XRay</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="previous chapter">Utilities</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/xray.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utilities"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">XRay</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>

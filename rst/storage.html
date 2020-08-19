@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Storage &#8212; AwAws v0.0.18 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Utilities" href="utils.html" />
+    <link rel="prev" title="SQS" href="sqs.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sqs.html" title="SQS"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Storage</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-AwAws.Storage">
+<span id="storage"></span><h1>Storage<a class="headerlink" href="#module-AwAws.Storage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="s3">
+<h2>S3<a class="headerlink" href="#s3" title="Permalink to this headline">¶</a></h2>
+<p>Methods to simplify storing and retrieving objects from S3</p>
+<dl class="py class">
+<dt id="AwAws.Storage.s3.S3">
+<em class="property">class </em><code class="sig-prename descclassname">AwAws.Storage.s3.</code><code class="sig-name descname">S3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">region_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Storage.s3.S3" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="py method">
+<dt id="AwAws.Storage.s3.S3.get_streaming_file_object">
+<code class="sig-name descname">get_streaming_file_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Storage.s3.S3.get_streaming_file_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>for reading objects from s3
+retutns a binary object which can be decoded
+with decode(‘utf-8’) for example</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Storage.s3.S3.put_data_object">
+<code class="sig-name descname">put_data_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Storage.s3.S3.put_data_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>store a data structure - like an array or dict</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Storage.s3.S3.put_file_object">
+<code class="sig-name descname">put_file_object</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Storage.s3.S3.put_file_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>store binary info - an image, encrypted data, word doc, etc</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Storage.s3.S3.set_bucket_name">
+<code class="sig-name descname">set_bucket_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bucket_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Storage.s3.S3.set_bucket_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>sets the bucket_name property for class. CHecks that bucket exists</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="AwAws.Storage.s3.S3.set_key_name">
+<code class="sig-name descname">set_key_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">key_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#AwAws.Storage.s3.S3.set_key_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>set the key name property (i.e., the s3 ‘file’ name)</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Storage</a><ul>
+<li><a class="reference internal" href="#s3">S3</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sqs.html"
+                        title="previous chapter">SQS</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="utils.html"
+                        title="next chapter">Utilities</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rst/storage.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="utils.html" title="Utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sqs.html" title="SQS"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">AwAws v0.0.18 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Storage</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Dilex Networks.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.2.1.
+    </div>
+  </body>
+</html>
