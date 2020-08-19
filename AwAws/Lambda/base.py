@@ -21,15 +21,19 @@ class Lambda:
         return 'ok'
 
     def get_region(self):
+        'returns AWS Region we are running in'
         return os.environ.get('AWS_REGION')
 
     def get_aw_env(self):
+        'returns the AwAws environment if set'
         return os.environ.get('AW_ENV')
 
     def get_aw_account(self):
+        'returns AwAws Account we are running in'
         return os.environ.get('AW_ACCT')
 
     def get_env(self, var_name):
+        'returns the given environment variable'
         return os.environ.get(var_name)
 
     @classmethod

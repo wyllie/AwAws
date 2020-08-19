@@ -13,6 +13,7 @@ class Event():
         * **params**: (*dict*), {} - qstring params
         * **path**:  (*string*), None - incoming path
         * **body**: (*string*), {} - incoming data
+    :raises: AwAwsInvalidHttpMethod, AwAwsMissingRequirement
 
     """
     #: Allowed HTTP Methods

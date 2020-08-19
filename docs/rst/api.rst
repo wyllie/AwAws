@@ -28,13 +28,19 @@ Typical usage in a Lambda::
         api.event.parse_event(event)
 
         # now api.event contains all of the event's properties
-        try:
-            assert api.event.method == 'PUT'
-        except AssertionError:
+        if api.event.method != 'PUT'
             return api.response.error_4XX('PUT method required')
 
-        response_body = {'all_good': 'some data to return}
+        params = event.params   # a dictionary of incoming parameters
+        path = event.path       # the incoming path for this request
+        body = event.body       # incoming data
+
+        # -- do your thing here ---
+
+        # create a response
+        response_body = {'all_good': 'some data to return'}
         response = api.response.ok_200(body=response_body)
+
         return response
 
 .. note:: Should also include a ``Context`` class
