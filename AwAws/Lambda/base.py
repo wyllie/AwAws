@@ -29,8 +29,8 @@ class Lambda:
         return os.environ.get('AW_ENV')
 
     def get_aw_account(self):
-        'returns AWS Account we are running in'
-        return os.environ.get('AWS_ACCT')
+        'returns AwAws Account we are running in'
+        return os.environ.get('AW_ACCT')
 
     def get_env(self, var_name):
         'returns the given environment variable'
