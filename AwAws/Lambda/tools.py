@@ -20,6 +20,7 @@ class LambdaTools():
 
 
     def whipit(self):
+        'this function can be used to keep lambdas warm'
 
         # get a list of installed lambda functions
         try:
