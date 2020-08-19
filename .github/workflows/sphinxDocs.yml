@@ -1,8 +1,13 @@
+# This workflow will build the sphinx docs and place them on the
+# gh-pages branch where they can be served on the GitHub Pages website
+
 name: build sphinx docs for github-pages site
 
 on:
   push:
-    branches: [master]
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   deploy:
@@ -17,7 +22,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python3 -m pip install requirements/dev.txt
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements/dev.txt
           cd docs && make html
 
       - name: Deploy
