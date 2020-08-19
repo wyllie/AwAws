@@ -2,7 +2,8 @@ name: build sphinx docs for github-pages site
 
 on:
   push:
-    branches: [master]
+    branches:
+      - master
 
 jobs:
   deploy:
