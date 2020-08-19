@@ -6,7 +6,7 @@
 # separate action.
 #
 # A new version of the layer will be created for every branch when a
-# pull request is intitiated.  This allows us to test the layer in a
+# pull request is initiated.  This allows us to test the layer in a
 # dev environment on AWS BEFORE the code is merged into master.
 
 

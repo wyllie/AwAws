@@ -2,7 +2,7 @@
 #
 # This action will run on every push
 
-name: Python application
+name: Unit tests and static analysis
 
 on:
   push:
