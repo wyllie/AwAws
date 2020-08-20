@@ -3,7 +3,7 @@ Dilex AWS Botocore/Boto3 Wrapper SDK
 
 ![Python application](https://github.com/DilexNetworks/AwAws/workflows/Python%20application/badge.svg)
 
-[AwAws Documentation](http://dilexnetworks/github.io/AwAws)
+[AwAws Documentation](http://dilexnetworks.github.io/AwAws)
 AwAws is a Python wrapper around the boto3/botocore libraries provided by AWS.
 It was written to be installed as a layer on AWS Lambda and is primarily intended
 to be used with serverless applications (Lambda functions) on AWS.  That said, the
@@ -44,7 +44,7 @@ all lives in one place.
 ## Install for production
 
 The easiest way to use this library is to reference the lambda layer location
-which is available here:
+which is available here: __COMING SOON__
 
 ## Install for developers
 Steps to get up and running with AwAws:
