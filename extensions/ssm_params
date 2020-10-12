@@ -12,10 +12,7 @@ import signal
 from pathlib import Path
 from AwAws.Utils.env import Env
 
-
-# global variables
-# extension name has to match the file's parent directory name)
-LAMBDA_EXTENSION_NAME = Path(__file__).parent.name
+LAMBDA_EXTENSION_NAME = 'ssm_params'
 
 
 # custom extension code
