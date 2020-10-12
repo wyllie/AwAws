@@ -22,7 +22,14 @@ name = args.name
 new_value = args.value
 
 
-params = Parameters(service)
+role_arn = None
+if args.account is not None:
+    print('got', args.account)
+    role_arn = 'arn:aws:iam::' + args.account + ':role/OrganizationAccountAccessRole'
+
+
+
+params = Parameters(service, role_arn=role_arn)
 
 try:
     value = params.get_param_value(name)
