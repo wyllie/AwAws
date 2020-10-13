@@ -27,7 +27,11 @@ class Extension:
         payload = {
             'events': self.events
         }
-        response = requests.post(url, headers, payload)
+        response = requests.post(
+            url=url,
+            headers=headers,
+            json=payload
+        )
         print('DUMP:', url, headers, payload, response.headers, response.text)
 
         self.extension_id = response.headers['Lambda-Extension-Identifier']
