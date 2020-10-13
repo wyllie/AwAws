@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import json
+import os
 import sys
 
 # These need to be imported from /opt/python
@@ -14,6 +15,7 @@ class SSM_Params_extension(Extension):
         print(f'[MY {self.name}] Received event: {json.dumps(event)}', flush=True)
 
 
+print(f'Environment: {os.environ}', flush=True)
 # Check to see if we want to run this extension
 if Env().get_env('AWAWS_SSM_PARAMS') is None:
     print(f'AWAWS_SSM_PARAMS is not set - ssm parameter caching turned off')
