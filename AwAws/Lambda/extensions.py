@@ -9,7 +9,7 @@ class Extension:
     def __init__(self):
         self.name = os.path.basename(sys.argv[0])
         self.extension_id = None
-        self.events = []
+        self.events = ['INVOKE', 'SHUTDOWN']
         self.lambda_api = os.environ['AWS_LAMBDA_RUNTIME_API']
 
         # catch and handle signals
@@ -18,7 +18,7 @@ class Extension:
 
     def register_extension(self):
         'the extension needs to be registered or lambda will not run it'
-        print(f"{self.name}] Registering extension", flush=True)
+        print(f"[{self.name}] Registering extension", flush=True)
 
         url = f"http://{self.lambda_api}/2020-01-01/extension/register"
         headers = {
