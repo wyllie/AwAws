@@ -16,11 +16,16 @@ class SSM_Params_extension(Extension):
 
 
 print(f'Environment: {os.environ}', flush=True)
+
+ext = SSM_Params_extension()
 # Check to see if we want to run this extension
+
 if Env().get_env('AWAWS_SSM_PARAMS') is None:
     print(f'AWAWS_SSM_PARAMS is not set - ssm parameter caching turned off')
+    ext.events = ['INIT', 'SHUTDOWN']
 else:
     # Run the extension
-    ext = SSM_Params_extension()
-    ext.register_extension()
-    ext.process_events()
+    ext.events = ['INVOKE', 'SHUTDOWN']
+
+ext.register_extension()
+ext.process_events()
