@@ -32,11 +32,8 @@ class Extension:
             headers=headers,
             json=payload
         )
-        print('DUMP:', url, headers, payload, response.headers, response.text)
-
         self.extension_id = response.headers['Lambda-Extension-Identifier']
         print(f"[{self.name}] Registered with ID: {self.extension_id}", flush=True)
-        print(f"Registration Response: {response.text}", flush=True)
 
     def process_events(self):
         'this listens for events from lambda'
@@ -48,8 +45,11 @@ class Extension:
         # set up a loop and wait for incoming requests
         while True:
             print(f"[{self.name}] Waiting for event...", flush=True)
-            response = requests.get(url, headers, timeout=None)
-
+            response = requests.get(
+                url=url,
+                headers=headers,
+                timeout=None
+            )
             event = json.loads(response.text)
             if event['eventType'] == 'SHUTDOWN':
                 self.exit_processing()
