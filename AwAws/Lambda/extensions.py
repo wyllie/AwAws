@@ -22,7 +22,7 @@ class Extension:
 
         url = f"http://{self.lambda_api}/2020-01-01/extension/register"
         headers = {
-            'lambda-Extension-Name': self.name
+            'Lambda-Extension-Name': self.name
         }
         payload = {
             'events': self.events
