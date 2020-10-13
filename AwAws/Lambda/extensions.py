@@ -28,7 +28,7 @@ class Extension:
             'events': self.events
         }
         response = requests.post(url, headers, payload)
-        print(f'DUMP:', url, response.headers)
+        print('DUMP:', url, response.headers, response.text)
 
         self.extension_id = response.headers['Lambda-Extension-Identifier']
         print(f"[{self.name}] Registered with ID: {self.extension_id}", flush=True)
