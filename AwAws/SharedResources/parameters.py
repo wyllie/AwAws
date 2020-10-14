@@ -1,4 +1,4 @@
-import pickle
+import pickle  # nosec - safe inside lambda environment
 
 from AwAws.Session.session import Session
 
@@ -85,11 +85,11 @@ class Parameters:
         'store key/value pairs in a tmp file (for lambda)'
         params = self.get_param_dictionary()
         file = open(self.tmp_file_loc, 'wb')
-        pickle.dump(params, file)
+        pickle.dump(params, file)  # nosec - safe inside a lambda
         file.close()
 
     def read_tmp_dict(self):
         'read tmp file and return contents'
         file = open(self.tmp_file_loc, 'rb')
-        params = pickle.load(file)
+        params = pickle.load(file)  # nosec - safe inside a lambda
         return params
