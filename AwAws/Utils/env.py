@@ -1,7 +1,7 @@
 import os
 
 
-class Env():
+class Env:
     def __init__(self):
         self.env = os.environ
 
@@ -10,7 +10,7 @@ class Env():
         'get an environment variable'
         try:
             ret = self.env[key]
-        except Exception:
+        except KeyError:
             # variable does not exist, set it to None
             ret = None
 

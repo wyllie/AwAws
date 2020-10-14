@@ -48,6 +48,6 @@ jobs:
           pip install -r requirements/prod.txt -t python
           pip install . -t  python
           echo building release $release_id
-          zip --quiet -r $release_id python
+          zip --quiet -r $release_id python extensions
           aws s3 cp $release_id $release_bucket_uri/$release_id
 

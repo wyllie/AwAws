@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+
+import json
+import os
+import pickle
+import sys
+
+# These need to be imported from /opt/python
+sys.path.append('/opt/python')
+from AwAws.Lambda.extensions import Extension
+from AwAws.SharedResources.parameters import Parameters
+from AwAws.Utils.env import Env
+
+
+class SSMParamsExtension(Extension):
+    def __init__(self):
+        self.service = None
+        super().__init__()
+
+    def get_params(self):
+        try:
+            params = Parameters(self.service).get_all()
+            file = open('/tmp/ssm_params', 'wb')
+            pickle.dump(params, file)
+            file.close()
+            print(f'[{self.name}] SSM params found for {self.service}')
+        except Exception as e:
+            print(f'[{self.name}] No SSM params found for {self.service} - check SSM', e)
+            pass
+
+    # override event_processing in the base class
+    def event_processing(self, event):
+        pass
+        # print(f'[MY {self.name}] Received event: {json.dumps(event)}', flush=True)
+
+
+print(f'Environment: {os.environ}', flush=True)
+
+ext = SSMParamsExtension()
+ext.events = ['SHUTDOWN']
+ext.register_extension()
+
+# This extension only runs in the init stage
+ext.service = Env().get_env('AWAWS_SSM_SERVICE')
+if ext.service is not None:
+    ext.get_params()
+else:
+    print(f'AWAWS_SSM_SERVICE is required for SSM caching - ssm parameter caching turned off')
+
+ext.process_events()
