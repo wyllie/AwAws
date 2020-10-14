@@ -2,30 +2,49 @@
 
 import json
 import os
+import pickle
 import sys
 
 # These need to be imported from /opt/python
 sys.path.append('/opt/python')
 from AwAws.Lambda.extensions import Extension
+from AwAws.SharedResources.parameters import Parameters
 from AwAws.Utils.env import Env
 
 
 class SSM_Params_extension(Extension):
+    def __init__(self):
+        self.service = None
+        super().__init__()
+
+    def get_params(self):
+        try:
+            params = Parameters(self.service).get_all()
+            file = open('/tmp/ssm_params', 'wb')
+            pickle.dump(params, file)
+            file.close()
+            print(f'[{self.name}] SSM params found for {self.service}')
+        except Exception as e:
+            print(f'[{self.name}] No SSM params found for {self.service} - check SSM', e)
+            pass
+
+    # override event_processing in the base class
     def event_processing(self, event):
-        print(f'[MY {self.name}] Received event: {json.dumps(event)}', flush=True)
+        pass
+        # print(f'[MY {self.name}] Received event: {json.dumps(event)}', flush=True)
 
 
 print(f'Environment: {os.environ}', flush=True)
 
 ext = SSM_Params_extension()
-# Check to see if we want to run this extension
-
-if Env().get_env('AWAWS_SSM_PARAMS') is None:
-    print(f'AWAWS_SSM_PARAMS is not set - ssm parameter caching turned off')
-    ext.events = ['SHUTDOWN']
-else:
-    # Run the extension
-    ext.events = ['INVOKE', 'SHUTDOWN']
-
+ext.events = ['SHUTDOWN']
 ext.register_extension()
+
+# This extension only runs in the init stage
+ext.service = Env().get_env('AWAWS_SSM_SERVICE')
+if ext.service is not None:
+    ext.get_params()
+else:
+    print(f'AWAWS_SSM_SERVICE is required for SSM caching - ssm parameter caching turned off')
+
 ext.process_events()
