@@ -12,7 +12,7 @@ from AwAws.SharedResources.parameters import Parameters
 from AwAws.Utils.env import Env
 
 
-class SSM_Params_extension(Extension):
+class SSMParamsExtension(Extension):
     def __init__(self):
         self.service = None
         super().__init__()
@@ -36,7 +36,7 @@ class SSM_Params_extension(Extension):
 
 print(f'Environment: {os.environ}', flush=True)
 
-ext = SSM_Params_extension()
+ext = SSMParamsExtension()
 ext.events = ['SHUTDOWN']
 ext.register_extension()
 
