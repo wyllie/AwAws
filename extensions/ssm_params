@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 
-import json
 import os
-import pickle
 import sys
 
 # These need to be imported from /opt/python
@@ -17,12 +15,9 @@ class SSMParamsExtension(Extension):
         self.service = None
         super().__init__()
 
-    def get_params(self):
+    def store_params(self):
         try:
-            params = Parameters(self.service).get_all()
-            file = open('/tmp/ssm_params', 'wb')
-            pickle.dump(params, file)
-            file.close()
+            Parameters(self.service).create_tmp_dict()
             print(f'[{self.name}] SSM params found for {self.service}')
         except Exception as e:
             print(f'[{self.name}] No SSM params found for {self.service} - check SSM', e)
@@ -43,7 +38,7 @@ ext.register_extension()
 # This extension only runs in the init stage
 ext.service = Env().get_env('AWAWS_SSM_SERVICE')
 if ext.service is not None:
-    ext.get_params()
+    ext.store_params()
 else:
     print(f'AWAWS_SSM_SERVICE is required for SSM caching - ssm parameter caching turned off')
 

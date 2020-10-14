@@ -4,6 +4,13 @@ import signal
 import sys
 import requests
 
+'''
+This is the base class for lambda extensions.  The actual extensions can be found in the top
+level /extensions directory.  Extensions can be used to initialize objects and data before
+the lambda starts running as well as handing logging or other types of error reporting without
+affecting the code in the lambda itself 
+'''
+
 
 class Extension:
     def __init__(self):
@@ -36,7 +43,7 @@ class Extension:
         print(f"[{self.name}] Registered with ID: {self.extension_id}", flush=True)
 
     def process_events(self):
-        'this listens for events from lambda'
+        'this listens for events from the lambda service'
         url = f"http://{self.lambda_api}/2020-01-01/extension/event/next"
         headers = {
             'Lambda-Extension-Identifier': self.extension_id
@@ -57,11 +64,11 @@ class Extension:
                 self.event_processing(event)
 
     def event_processing(self, event):
-        'do something with the event'
+        'runs on every lambda invoke event - override this function to do something more interesting'
         print(f'[{self.name}] Received event: {json.dumps(event)}', flush=True)
 
     def exit_processing(self):
-        'do something when the function exits'
+        'do something when the function exits - override this to do something more interesting'
         print(f'[{self.name}] Received SHUTDOWN event. Exiting!', flush=True)
         sys.exit(0)
 
