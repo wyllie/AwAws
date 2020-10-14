@@ -8,7 +8,7 @@ import requests
 This is the base class for lambda extensions.  The actual extensions can be found in the top
 level /extensions directory.  Extensions can be used to initialize objects and data before
 the lambda starts running as well as handing logging or other types of error reporting without
-affecting the code in the lambda itself 
+affecting the code in the lambda itself
 '''
 
 
