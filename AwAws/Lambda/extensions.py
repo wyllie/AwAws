@@ -64,7 +64,7 @@ class Extension:
                 self.event_processing(event)
 
     def event_processing(self, event):
-        'runs on every lambda invoke event - override this function to do something more interesting'
+        'runs on every lambda invoke event - override function to do something more interesting'
         print(f'[{self.name}] Received event: {json.dumps(event)}', flush=True)
 
     def exit_processing(self):
