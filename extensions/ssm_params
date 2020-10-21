@@ -18,6 +18,7 @@ class SSMParamsExtension(Extension):
     def store_params(self):
         try:
             Parameters(self.service).create_tmp_dict()
+
             print(f'[{self.name}] SSM params found for {self.service}')
         except Exception as e:
             print(f'[{self.name}] No SSM params found for {self.service} - check SSM', e)

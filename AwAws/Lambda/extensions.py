@@ -44,6 +44,7 @@ class Extension:
 
     def process_events(self):
         'this listens for events from the lambda service'
+
         url = f"http://{self.lambda_api}/2020-01-01/extension/event/next"
         headers = {
             'Lambda-Extension-Identifier': self.extension_id
