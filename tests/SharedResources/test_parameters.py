@@ -48,12 +48,22 @@ def ssm_put_response():
 def test_init():
     params = Parameters(service='test_service')
     inspect.isclass(Parameters)
-    assert str(type(params.ssm)) == "<class 'botocore.client.SSM'>"
     assert params.service == 'test_service'
+    assert params.region_name is None
+    assert params.role_arn is None
+    assert params.tmp_file_loc == '/tmp/awaws_ssm_params'
+    assert params.ssm is None
+
+
+def test_get_ssm():
+    params = Parameters(service='test_service')
+    params.get_ssm()
+    assert str(type(params.ssm)) == "<class 'botocore.client.SSM'>"
 
 
 def test_get_param(ssm_get_response):
     params = Parameters(service='alpha')
+    params.get_ssm()
     with Stubber(params.ssm) as stubber:
         stubber.add_response('get_parameter', ssm_get_response)
         assert params.get_param('hostname')['Value'] == 'some.hostname.com'
@@ -61,6 +71,7 @@ def test_get_param(ssm_get_response):
 
 def test_get_param_value(ssm_get_response):
     params = Parameters(service='alpha')
+    params.get_ssm()
     with Stubber(params.ssm) as stubber:
         stubber.add_response('get_parameter', ssm_get_response)
         assert params.get_param_value('hostname') == 'some.hostname.com'
@@ -68,6 +79,7 @@ def test_get_param_value(ssm_get_response):
 
 def test_get_fail():
     params = Parameters(service='omega')
+    params.get_ssm()
     with Stubber(params.ssm) as stubber:
         stubber.add_client_error('get_parameter')
         with pytest.raises(RuntimeError):
@@ -76,6 +88,7 @@ def test_get_fail():
 
 def test_get_all(ssm_get_all_response):
     params = Parameters(service='test_service')
+    params.get_ssm()
     with Stubber(params.ssm) as stubber:
         stubber.add_response('get_parameters_by_path', ssm_get_all_response)
         my_params = params.get_all()
@@ -85,6 +98,7 @@ def test_get_all(ssm_get_all_response):
 
 def test_put_param(ssm_put_response):
     params = Parameters(service='alpha')
+    params.get_ssm()
     with Stubber(params.ssm) as stubber:
         stubber.add_response('put_parameter', ssm_put_response)
         stubber.add_response('put_parameter', ssm_put_response)
@@ -94,6 +108,7 @@ def test_put_param(ssm_put_response):
 
 def test_put_fail():
     params = Parameters(service='omega')
+    params.get_ssm()
     with Stubber(params.ssm) as stubber:
         stubber.add_client_error('put_parameter')
         with pytest.raises(RuntimeError):
