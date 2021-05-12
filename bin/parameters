@@ -11,6 +11,7 @@ parser.add_argument('-n', '--name', help='name of parameter')
 parser.add_argument('-a', '--account', help='account to use - need account number')
 parser.add_argument('-r', '--region', default='us-east-2',
                     help='region to use (default: %(default)s')
+#parser.add_argument('-x', '--secure', help='store value securely')
 parser.add_argument('-v', '--value', help='value to set')
 args = parser.parse_args()
 
