@@ -2,7 +2,7 @@
 # requirements.txt file if this module is being installed directly from
 # github (this type of install does not automatically install dependencies)
 
-aws-encryption-sdk==1.3.8
+aws-encryption-sdk==1.9.0
 aws-xray-sdk>=2.6.0
 botocore>=1.18.16
 boto3>=1.15.16
